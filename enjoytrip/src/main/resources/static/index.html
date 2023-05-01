@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link href="/css/app.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- 상단 navbar start -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/index.html">EnjoyTrip</a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/tripmap.html">지역별여행지</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tripplan.html">나의여행계획</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/hotplace.html">핫플자랑하기</a>
+            </li>
+            <li class="nav-item dropdown" id="admin-list">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                관리자 목록
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">회원관리</a></li>
+                <li><a class="dropdown-item" href="#"></a></li>
+              </ul>
+            </li>
+          </ul>
+          <!-- 로그인, 로그아웃 -->
+          <div>
+            <button
+              type="button"
+              class="btn"
+              id="login"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+            >
+              로그인
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="btn"
+              id="join"
+              data-bs-toggle="modal"
+              data-bs-target="#joinModal"
+            >
+              회원가입
+            </button>
+          </div>
+          <div class="iflogin" style="display: block">
+            <button type="button" class="btn" id="logout">로그아웃</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- 회원가입 Modal -->
+    <div
+      class="modal fade"
+      id="joinModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><mark class="purple">회원가입</mark></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="username" class="form-label">이름 : </label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                placeholder="이름..."
+              />
+            </div>
+            <div class="mb-3">
+              <label for="userid" class="form-label">아이디 : </label>
+              <input
+                type="text"
+                class="form-control"
+                id="userid"
+                placeholder="아이디..."
+              />
+            </div>
+            <div id="idcheck-result"></div>
+            <div class="mb-3">
+              <label for="userpwd" class="form-label">비밀번호 : </label>
+              <input
+                type="password"
+                class="form-control"
+                id="userpwd"
+                placeholder="비밀번호..."
+              />
+            </div>
+            <div class="mb-3">
+              <label for="pwdcheck" class="form-label">비밀번호확인 : </label>
+              <input
+                type="password"
+                class="form-control"
+                id="pwdcheck"
+                placeholder="비밀번호확인..."
+              />
+            </div>
+            <div class="mb-3">
+              <label for="emailid" class="form-label">이메일 : </label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="emailid"
+                  placeholder="이메일아이디"
+                />
+                <span class="input-group-text">@</span>
+                <select
+                  class="form-select"
+                  id="emaildomain"
+                  aria-label="이메일 도메인 선택"
+                >
+                  <option selected>선택</option>
+                  <option value="ssafy.com">싸피</option>
+                  <option value="google.com">구글</option>
+                  <option value="naver.com">네이버</option>
+                  <option value="kakao.com">카카오</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              id="btn-join"
+              class="btn btn-outline-primary"
+              data-bs-dismiss="modal"
+            >
+              회원가입
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 로그인 모달 -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><mark class="purple">로그인</mark></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="userid" class="form-label">아이디 : </label>
+              <input
+                type="text"
+                class="form-control"
+                id="login-userid"
+                placeholder="아이디..."
+              />
+            </div>
+            <div id="idcheck-result"></div>
+            <div class="mb-3">
+              <label for="userpwd" class="form-label">비밀번호 : </label>
+              <input
+                type="password"
+                class="form-control"
+                id="login-userpwd"
+                placeholder="비밀번호..."
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              id="btn-login"
+              class="btn btn-outline-primary"
+              data-bs-dismiss="modal"
+            >
+              로그인
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/user.js"></script>
+
+    <!-- 상단 navbar end -->
+    <!-- 중앙 content start -->
+    <!-- 중앙 left content  start -->
+
+    <!-- 중앙 left content end -->
+    <!-- 중앙 center content start -->
+    <!-- 중앙 center content end -->
+    <!-- 중앙 content end -->
+
+    <!-- 하단 footer start -->
+
+    <!-- 하단 footer end -->
+
+    <!-- 회원가입 Modal -->
+    <div
+      class="modal fade"
+      id="joinModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><mark class="purple">회원 등록</mark></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="username" class="form-label">이름 : </label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                placeholder="이름..."
+              />
+            </div>
+            <div class="mb-3">
+              <label for="userid" class="form-label">아이디 : </label>
+              <input
+                type="text"
+                class="form-control"
+                id="userid"
+                placeholder="아이디..."
+              />
+            </div>
+            <div id="idcheck-result"></div>
+            <div class="mb-3">
+              <label for="userpwd" class="form-label">비밀번호 : </label>
+              <input
+                type="password"
+                class="form-control"
+                id="userpwd"
+                placeholder="비밀번호..."
+              />
+            </div>
+            <div class="mb-3">
+              <label for="pwdcheck" class="form-label">비밀번호확인 : </label>
+              <input
+                type="password"
+                class="form-control"
+                id="pwdcheck"
+                placeholder="비밀번호확인..."
+              />
+            </div>
+            <div class="mb-3">
+              <label for="emailid" class="form-label">이메일 : </label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="emailid"
+                  placeholder="이메일아이디"
+                />
+                <span class="input-group-text">@</span>
+                <select
+                  class="form-select"
+                  id="emaildomain"
+                  aria-label="이메일 도메인 선택"
+                >
+                  <option selected>선택</option>
+                  <option value="ssafy.com">싸피</option>
+                  <option value="google.com">구글</option>
+                  <option value="naver.com">네이버</option>
+                  <option value="kakao.com">카카오</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              id="btn-join"
+              class="btn btn-outline-primary"
+              data-bs-dismiss="modal"
+            >
+              회원가입
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 로그인 모달 -->
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"
+  ></script>
+  <script src="/js/includeHTML.js"></script>
+  <script></script>
+</html>
