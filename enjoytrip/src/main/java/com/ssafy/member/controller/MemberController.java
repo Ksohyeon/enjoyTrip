@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.member.model.MemberDto;
+import com.ssafy.member.model.dto.MemberDto;
 import com.ssafy.member.model.service.MemberService;
 
 @RestController
