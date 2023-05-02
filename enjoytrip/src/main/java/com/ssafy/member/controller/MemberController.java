@@ -1,5 +1,7 @@
 package com.ssafy.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -8,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.member.model.dto.MemberDto;
@@ -129,5 +132,22 @@ public class MemberController {
 		
 		return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);
 		
+	}
+	
+	@GetMapping("/admin/user")
+	public ResponseEntity<?> userList() throws Exception {
+		List<MemberDto> userList = memberService.listMember();
+		if (userList != null && !userList.isEmpty()) {
+			return new ResponseEntity<List<MemberDto>>(userList, HttpStatus.OK); // 200
+		}
+		else {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); // 204
+		}
+	}
+	
+	@DeleteMapping("/admin/user/{userId}")
+	public void userDelete(@PathVariable("userId") String userId) throws Exception {
+		System.out.println(userId);
+		memberService.deleteMember(userId);
 	}
 }
