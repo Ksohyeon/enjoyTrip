@@ -13,7 +13,7 @@ public class MemberDto {
 	public MemberDto() {}
 
 	public MemberDto(String userId, String userName, String userPwd, String emailId, String emailDomain,
-			String joinDate, boolean admin) {
+			String joinDate, int admin) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
