@@ -140,7 +140,7 @@ public class MemberController {
 		memberService.deleteMember(userid);
 		
 
-	
+	}
 	@GetMapping("/admin/user")
 	public ResponseEntity<?> userList() throws Exception {
 		List<MemberDto> userList = memberService.listMember();
