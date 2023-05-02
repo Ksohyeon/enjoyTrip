@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.board.model.mapper.SearchMapper">
+
+	<resultMap type="sidoDto" id="sido">
+		<result column="sido_code" property="code" />
+		<result column="sido_name" property="name" />
+	</resultMap>
+	<select id="sidoList" resultMap="sido">
+		select sido_code, sido_name
+		from sido
+		order by sido_code
+	</select>
+	
+	<resultMap type="searchResponseDto" id="searchResponse">
+		<result column="first_image" property="img"/>
+		<result column="title" property="name"/>
+		<result column="addr1" property="address"/>
+		<result column="latitude" property="lat"/>
+		<result column="longitude" property="lon"/>
+		<result column="tel" property="tel"/>
+	</resultMap>
+	
+	<select id="searchList" resultMap="searchResponse">
+		SELECT ai.first_image, ai.title, ai.addr1, ai.latitude, ai.longitude, ai.tel
+		FROM attraction_info ai
+		join sido s on s.sido_code = ai.sido_code
+		where ai.title LIKE CONCAT('%', #{keyword}, '%')
+		<if test="sido != 0" >
+			and s.sido_code = #{sido}
+		</if>
+		<if test="category != 0">
+			and content_type_id = #{category}
+		</if>
+	</select>
+</mapper>
