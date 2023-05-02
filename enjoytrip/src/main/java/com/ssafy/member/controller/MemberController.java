@@ -1,5 +1,7 @@
 package com.ssafy.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.board.model.dto.SearchResponseDto;
 import com.ssafy.member.model.dto.MemberDto;
 import com.ssafy.member.model.service.MemberService;
 
@@ -129,5 +132,16 @@ public class MemberController {
 		
 		return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);
 		
+	}
+	
+	@GetMapping("/admin/user")
+	public ResponseEntity<?> userList() throws Exception {
+		List<MemberDto> userList = memberService.listMember();
+		if (userList != null && !userList.isEmpty()) {
+			return new ResponseEntity<List<MemberDto>>(userList, HttpStatus.OK); // 200
+		}
+		else {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); // 204
+		}
 	}
 }

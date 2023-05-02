@@ -35,7 +35,7 @@
 	</select>
 	
 	<select id="listMember" resultMap="memberAll">
-		SELECT user_name, user_id, user_password, email_id, email_domain, join_date
+		SELECT user_name, user_id, user_password, email_id, email_domain, join_date, admin
 		FROM members
 		ORDER BY join_date
 	</select>

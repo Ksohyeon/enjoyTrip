@@ -11,7 +11,6 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/css/main.css" />
     <link href="/css/app.css" rel="stylesheet" />
   </head>
   <body>
@@ -316,6 +315,35 @@
         </div>
       </div>
     </div>
+    <div>
+    	<div class="row justify-content-center mt-5">
+		<div class="col-lg-8 col-md-10 col-sm-12">
+			<h2 class="my-3 py-3 shadow-sm bg-light text-center">
+				<mark class="sky">사용자 목록</mark>
+			</h2>
+		</div>
+		<div class="col-lg-8 col-md-10 col-sm-12">
+			<table class="table table-hover">
+				<thead>
+					<tr class="text-center">
+						<th scope="col">아이디</th>
+						<th scope="col">이메일</th>
+						<th scope="col">이름</th>
+						<th scope="col">관리자 여부</th>
+					</tr>
+				</thead>
+				<tbody id = "user-list">
+					<tr class="text-center">
+						<th scope="row"><a href="#"></a></th>
+						<td class="text-center"></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+    </div>
     <script src="/js/user.js"></script>
   </body>
   <script
@@ -324,4 +352,30 @@
     crossorigin="anonymous"
   ></script>
   <script src="/js/includeHTML.js"></script>
+  <script>
+  	let userUrl = "http://localhost:8080/user/admin/user";
+  	fetch(userUrl, { method:"GET"})
+  	.then((response) => response.json())
+    .then((data) => makeList(data));
+  	
+  	function makeList(users) {
+        document.querySelector("table").setAttribute("style", "display: ;");
+
+        positions = [];
+        let userList = ``;
+        users.forEach((user) => {
+          userList += `
+            <tr>
+              <td>${user.userId}</td>
+              <td>${user.userName}</td>
+              <td>${user.userPwd}</td>
+              <td>${user.emailId}@${user.emailDomain}</td>
+              <td>${user.joinDate}</td>
+              <td>${user.admin}</td>
+            </tr>
+          `;
+    	});
+        document.getElementById("user-list").innerHTML = userList;
+  	}
+  </script>
 </html>
