@@ -14,39 +14,40 @@
 		<result column="email_id" property="emailId"/>
 		<result column="email_domain" property="emailDomain"/>
 		<result column="join_date" property="joinDate"/>
+		<result column="admin" property="admin"/>
 	</resultMap>
 
 	<select id="idCheck" resultType="int">
 		select count(user_id)
-		from members
-		where user_id = #{userid}
+		from user
+		where user_id = #{userId}
 	</select>
 
 	<insert id="joinMember">
-		insert into members (user_name, user_id, user_password, email_id, email_domain, join_date)
-		values (#{userName}, #{userId}, #{userPwd}, #{emailId}, #{emailDomain}, now())
+		insert into user (user_name, user_id, user_password, email_id, email_domain, join_date, admin)
+		values (#{userName}, #{userId}, #{userPwd}, #{emailId}, #{emailDomain}, now(), 0);
 	</insert>
 
 	<select id="loginMember" resultMap="member">
-		select user_id, user_name
-		from members
+		select user_id, user_name, admin
+		from user
 		where user_id = #{userId} and user_password = #{userPwd}
 	</select>
 	
 	<select id="listMember" resultMap="memberAll">
 		SELECT user_name, user_id, user_password, email_id, email_domain, join_date
-		FROM members
+		FROM user
 		ORDER BY join_date
 	</select>
 	
 	<select id="getMember" resultMap="memberAll">
 		SELECT user_name, user_id, user_password, email_id, email_domain, join_date
-		FROM members
+		FROM user
 		WHERE user_id = #{userId}
 	</select>
 	
 	<update id="updateMember">
-		UPDATE members
+		UPDATE user
 		<trim prefix="set" suffixOverrides=",">
 			<if test="userPwd != null">user_password = #{userPwd},</if>
 			<if test="emailId != null">email_id = #{emailId},</if>
@@ -57,7 +58,7 @@
 	
 	<delete id="deleteMember">
 		DELETE
-		FROM members
+		FROM user
 		WHERE user_id = #{userId}
 	</delete>
 	
