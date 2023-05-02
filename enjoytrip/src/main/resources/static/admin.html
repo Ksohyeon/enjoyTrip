@@ -327,9 +327,12 @@
 				<thead>
 					<tr class="text-center">
 						<th scope="col">아이디</th>
-						<th scope="col">이메일</th>
 						<th scope="col">이름</th>
-						<th scope="col">관리자 여부</th>
+						<th scope="col">이메일</th>
+						<th scope="col">비밀번호</th>
+						<th scope="col">가입일</th>
+						<th scope="col">관리자</th>
+						<th scope="col">삭제</th>
 					</tr>
 				</thead>
 				<tbody id = "user-list">
@@ -364,6 +367,7 @@
         positions = [];
         let userList = ``;
         users.forEach((user) => {
+          const admin = user.admin === 1 ? '관리자' : '유저';
           userList += `
             <tr>
               <td>${user.userId}</td>
@@ -371,11 +375,21 @@
               <td>${user.userPwd}</td>
               <td>${user.emailId}@${user.emailDomain}</td>
               <td>${user.joinDate}</td>
-              <td>${user.admin}</td>
+              <td>${admin}</td>
+              <td><a class = "btn btn-danger" href="#" onclick=deleteUser("${user.userId}")>삭제</a></td>
             </tr>
           `;
     	});
         document.getElementById("user-list").innerHTML = userList;
   	}
+  	
+  	function deleteUser(userId) {
+  		console.log(userId);
+  		let userUrl = "http://localhost:8080/user/admin/user/" + userId;
+  		fetch(userUrl, { method: 'DELETE' })
+  		.then((response) => response.json());
+  		window.location.reload();
+  	}
+
   </script>
 </html>
