@@ -8,6 +8,7 @@ public class MemberDto {
 	private String emailId;
 	private String emailDomain;
 	private String joinDate;
+	private int admin;
 
 	public String getUserId() {
 		return userId;
@@ -57,10 +58,18 @@ public class MemberDto {
 		this.joinDate = joinDate;
 	}
 
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberDto [userId=" + userId + ", userName=" + userName + ", userPwd=" + userPwd + ", emailId="
-				+ emailId + ", emailDomain=" + emailDomain + ", joinDate=" + joinDate + "]";
+				+ emailId + ", emailDomain=" + emailDomain + ", joinDate=" + joinDate + ", admin=" + admin + "]";
 	}
 
 }
