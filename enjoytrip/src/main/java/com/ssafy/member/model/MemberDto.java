@@ -8,6 +8,43 @@ public class MemberDto {
 	private String emailId;
 	private String emailDomain;
 	private String joinDate;
+	private boolean admin;
+	
+	public MemberDto() {}
+
+	public MemberDto(String userId, String userName, String userPwd, String emailId, String emailDomain,
+			String joinDate, boolean admin) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userPwd = userPwd;
+		this.emailId = emailId;
+		this.emailDomain = emailDomain;
+		this.joinDate = joinDate;
+		this.admin = admin;
+	}
+
+
+
+
+	public MemberDto(String userId, String userName, String userPwd, String emailId, String emailDomain,
+			String joinDate) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userPwd = userPwd;
+		this.emailId = emailId;
+		this.emailDomain = emailDomain;
+		this.joinDate = joinDate;
+	}
+	
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
 
 	public String getUserId() {
 		return userId;
