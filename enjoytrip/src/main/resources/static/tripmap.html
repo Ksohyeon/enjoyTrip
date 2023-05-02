@@ -26,10 +26,10 @@
         </div>
         <!-- 관광지 검색 start -->
         <form class="d-flex my-3" onsubmit="return false;" role="search">
-          <select id="search-area" class="form-select me-2">
+          <select id="sido" class="form-select me-2">
             <option value="0" selected>검색 할 지역 선택</option>
           </select>
-          <select id="search-content-id" class="form-select me-2">
+          <select id="category" class="form-select me-2">
             <option value="0" selected>관광지 유형</option>
             <option value="12">관광지</option>
             <option value="14">문화시설</option>
@@ -41,7 +41,7 @@
             <option value="39">음식점</option>
           </select>
           <input
-            id="search-keyword"
+            id="keyword"
             class="form-control me-2"
             type="search"
             placeholder="검색어"
@@ -80,20 +80,21 @@
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=17b2c7270ffb3d0575df76c7d373e8fd&libraries=services,clusterer,drawing"></script>
     <script>
       // index page 로딩 후 전국의 시도 설정.
-      let areaUrl =
+/*       let areaUrl =
         "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
         serviceKey +
-        "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
-
+        "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json"; */
+		
       // fetch(areaUrl, { method: "GET" }).then(function (response) { return response.json() }).then(function (data) { makeOption(data); });
+        
+      let areaUrl = "http://localhost:8080/sido";
       fetch(areaUrl, { method: "GET" })
         .then((response) => response.json())
         .then((data) => makeOption(data));
 
       function makeOption(data) {
-        let areas = data.response.body.items.item;
-        // console.log(areas);
-        let sel = document.getElementById("search-area");
+        let areas = data;
+        let sel = document.getElementById("sido");
         areas.forEach((area) => {
           let opt = document.createElement("option");
           opt.setAttribute("value", area.code);
@@ -108,46 +109,51 @@
       // 위 데이터를 가지고 공공데이터에 요청.
       // 받은 데이터를 이용하여 화면 구성.
       document.getElementById("btn-search").addEventListener("click", () => {
-        let searchUrl = `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A`;
+        // let searchUrl = `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A`;
 
-        let areaCode = document.getElementById("search-area").value;
-        let contentTypeId = document.getElementById("search-content-id").value;
-        let keyword = document.getElementById("search-keyword").value;
-
-        if (parseInt(areaCode)) searchUrl += `&areaCode=${areaCode}`;
-        if (parseInt(contentTypeId))
-          searchUrl += `&contentTypeId=${contentTypeId}`;
-        if (!keyword) {
-          alert("검색어 입력 필수!!!");
-          return;
-        } else searchUrl += `&keyword=${keyword}`;
-
-        fetch(searchUrl)
+        let searchUrl = "http://localhost:8080/search?"
+        
+        let sido = document.getElementById("sido").value;
+        let category = document.getElementById("category").value;
+        let keyword = document.getElementById("keyword").value;
+		console.log(sido);
+		console.log(category);
+        searchUrl += `&sido=${sido}`;
+        searchUrl += `&category=${category}`;
+        if (sido == 0 && category == 0 && keyword=="") {
+        	alert("조건을 선택해주세요");
+        	return;
+        }
+        searchUrl += `&keyword=${keyword}`;
+		console.log(searchUrl);
+        fetch(searchUrl, { method: "GET" })
           .then((response) => response.json())
           .then((data) => makeList(data));
       });
 
       var positions; // marker 배열.
       function makeList(data) {
+    	console.log(data);
         document.querySelector("table").setAttribute("style", "display: ;");
-        let trips = data.response.body.items.item;
+        let trips = data;
+        
         let tripList = ``;
         positions = [];
         trips.forEach((area) => {
           console.log(area);
           tripList += `
-            <tr onclick="moveCenter(${area.mapy}, ${area.mapx});">
-              <td><img src="${area.firstimage}" width="100px"></td>
-              <td>${area.title}</td>
-              <td>${area.addr1} ${area.addr2}</td>
-              <td>${area.mapy}</td>
-              <td>${area.mapx}</td>
+            <tr onclick="moveCenter(${area.lat}, ${area.lon});">
+              <td><img src="${area.img}" width="100px"></td>
+              <td>${area.name}</td>
+              <td>${area.address}</td>
+              <td>${area.lat}</td>
+              <td>${area.lon}</td>
             </tr>
           `;
 
           let markerInfo = {
-            title: area.title,
-            latlng: new kakao.maps.LatLng(area.mapy, area.mapx),
+            title: area.name,
+            latlng: new kakao.maps.LatLng(area.lat, area.lon),
           };
           positions.push(markerInfo);
         });

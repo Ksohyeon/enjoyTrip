@@ -1,6 +1,6 @@
 package com.ssafy.board.model.dto;
 
-public class SearchResponseDtoImpl   {
+public class SearchResponseDto   {
 
 	String img;
 	String name;
@@ -9,9 +9,9 @@ public class SearchResponseDtoImpl   {
 	String lon;
 	String tel;
 	
-	public SearchResponseDtoImpl() {}
+	public SearchResponseDto() {}
 	
-	public SearchResponseDtoImpl(String img, String name, String address, String lat, String lon, String tel) {
+	public SearchResponseDto(String img, String name, String address, String lat, String lon, String tel) {
 		super();
 		this.img = img;
 		this.name = name;

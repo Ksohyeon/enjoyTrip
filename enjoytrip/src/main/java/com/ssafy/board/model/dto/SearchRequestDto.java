@@ -1,14 +1,15 @@
 package com.ssafy.board.model.dto;
 
-public class SearchRequestDtoImpl {
-	
+public class SearchRequestDto {
+
 	String sido;
 	String category;
 	String keyword;
-	
-	public SearchRequestDtoImpl() {}
-	
-	public SearchRequestDtoImpl(String sido, String category, String keyword) {
+
+	public SearchRequestDto() {
+	}
+
+	public SearchRequestDto(String sido, String category, String keyword) {
 		super();
 		this.sido = sido;
 		this.category = category;
@@ -38,4 +39,10 @@ public class SearchRequestDtoImpl {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
+
+	@Override
+	public String toString() {
+		return "SearchRequestDto [sido=" + sido + ", category=" + category + ", keyword=" + keyword + "]";
+	}
+
 }

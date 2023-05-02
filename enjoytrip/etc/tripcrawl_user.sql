@@ -16,4 +16,4 @@ Insert into members (user_id, user_name, user_password, email_id, email_domain)
 values ('ssafy', '김싸피', 'ssafy', 'ssafy', 'ssafy');
 
 Insert into members (user_id, user_name, user_password, email_id, email_domain, admin)
-values ('amdin', '김관리', 'amdin', 'amdin', 'amdin', true);
+values ('admin', '김관리', 'admin', 'admin', 'admin', true);
