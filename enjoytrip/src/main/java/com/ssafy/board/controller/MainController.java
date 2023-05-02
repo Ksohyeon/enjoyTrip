@@ -1,4 +1,4 @@
-package com.ssafy.board;
+package com.ssafy.board.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,5 +10,8 @@ public class MainController {
 	public String index() {
 		return "index.html";
 	}
+	
+	
+	
 	
 }

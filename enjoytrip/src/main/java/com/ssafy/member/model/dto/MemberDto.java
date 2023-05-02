@@ -1,4 +1,4 @@
-package com.ssafy.member.model;
+package com.ssafy.member.model.dto;
 
 public class MemberDto {
 
