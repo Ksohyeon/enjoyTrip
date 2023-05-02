@@ -173,6 +173,9 @@ document
         document
           .querySelector("#userinfoupdate")
           .setAttribute("style", "display: block;");
+        document
+          .querySelector("#btn-update")
+          .setAttribute("style", "display: none;");
       });
   });
 
