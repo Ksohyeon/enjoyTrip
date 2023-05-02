@@ -45,13 +45,13 @@ public class MemberController {
 //		}
 //	}
 	
-	@GetMapping("/{userid}")
-	@ResponseBody
-	public String idCheck(@PathVariable("userid") String userId) throws Exception {
-		logger.debug("idCheck userid : {}", userId);
-		int cnt = memberService.idCheck(userId);
-		return cnt + "";
-	}
+//	@GetMapping("/{userid}")
+//	@ResponseBody
+//	public String idCheck(@PathVariable("userid") String userId) throws Exception {
+//		logger.debug("idCheck userid : {}", userId);
+//		int cnt = memberService.idCheck(userId);
+//		return cnt + "";
+//	}
 	
 	@PostMapping("/join")
 	public void join(@RequestBody MemberDto memberDto) {
@@ -99,5 +99,35 @@ public class MemberController {
 	public void logout(HttpSession session) {
 		session.invalidate();
 	}
-
+	
+	@GetMapping("/{userid}")
+	public ResponseEntity<?> select(@PathVariable("userid") String userid) {
+		MemberDto loginUser = null;
+		try {
+			loginUser = memberService.getMember(userid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<MemberDto>(loginUser, HttpStatus.OK);
+	}
+	
+	
+	@PostMapping("/update")
+	public ResponseEntity<?> update(@RequestBody MemberDto memberDto) {
+		System.out.println("update: "+ memberDto.toString());
+		MemberDto dto = null;
+		try {
+			memberService.updateMember(memberDto);
+			dto = memberService.getMember(memberDto.getUserId());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);
+		
+	}
 }

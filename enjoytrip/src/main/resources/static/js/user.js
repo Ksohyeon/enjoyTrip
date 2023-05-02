@@ -64,7 +64,7 @@ if (userid == null) {
   document.querySelector("#admin-list").setAttribute("style", "display: none;");
 }
 
-//회원 등록
+//회원 정보 가입
 document.querySelector("#btn-join").addEventListener("click", function () {
   let registerinfo = {
     userName: document.querySelector("#username").value,
@@ -87,7 +87,96 @@ document.querySelector("#btn-join").addEventListener("click", function () {
   window.location.reload();
 });
 
+// 회원 정보 조회
+document.querySelector("#userinfo").addEventListener("click", function () {
+  let userid = sessionStorage.getItem("userid");
+  fetch(`${root}/user/${userid}`)
+    .then((response) => response.json())
+    .then((data) => userinfo(data));
+});
 
+function userinfo(user) {
+  console.log(user);
+  let info = `
+      <div class="mb-3">
+        <div><b>아이디 </b></div>
+        <div>${user.userId}</div>
+      </div>
+      <div class="mb-3">
+        <div><b>이름 </b></div>
+        <div>${user.userName}</div>
+      </div>
+      <div class="mb-3">
+        <div><b>비밀번호 </b></div>
+        <div>${user.userPwd}</div>
+      </div>
+      <div class="mb-3">
+        <div><b>이메일 </b></div>
+        <div>${user.emailId}@${user.emailDomain}</div>
+      </div>
+  `;
+  document.querySelector("#userinfolist").innerHTML = info;
+}
+
+// 회원 정보 수정
+document
+  .querySelector("#userinfoupdate")
+  .addEventListener("click", function () {
+    // // 회원 정보 안보이게
+    let update = `
+    <div class="mb-3">
+      <div><b>아이디 </b></div>
+       <div>${sessionStorage.getItem("userid")}</div>
+    </div>
+    <div class="mb-3">
+      <div><b>비밀번호 </b></div>
+      <div><input type="text" name="userpwd" id="newpwd"></div>
+    </div>
+    <div class="mb-3">
+      <div><b>이메일 </b></div>
+      <div><input type="text" name="useremail" id="newemailid"></div>
+      <div>@</div>
+      <div><input type="text" name="useremail" id="newemaildomain"></div>
+    </div>
+    `;
+    document.querySelector("#userinfolist").innerHTML = update;
+    document
+      .querySelector("#userinfoupdate")
+      .setAttribute("style", "display: none;");
+    document
+      .querySelector("#btn-update")
+      .setAttribute("style", "display: block;");
+
+    // POST 전송을 위한 설정
+    document
+      .querySelector("#btn-update")
+      .addEventListener("click", function () {
+        let registerinfo = {
+          userName: null,
+          userId: sessionStorage.getItem("userid"),
+          userPwd: document.querySelector("#newpwd").value,
+          emailId: document.querySelector("#newemailid").value,
+          emailDomain: document.querySelector("#newemaildomain").value,
+        };
+
+        let config = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(registerinfo),
+        };
+        fetch(`${root}/user/update`, config)
+          .then((response) => response.json())
+          .then((user) => userinfo(user));
+
+        document
+          .querySelector("#userinfoupdate")
+          .setAttribute("style", "display: block;");
+      });
+  });
+
+// 히원 정보 삭제(탈퇴)
 
 // 로그인
 document.querySelector("#btn-login").addEventListener("click", function () {
@@ -125,4 +214,3 @@ document.querySelector("#logout").addEventListener("click", function () {
   sessionStorage.clear();
   window.location.reload();
 });
-
