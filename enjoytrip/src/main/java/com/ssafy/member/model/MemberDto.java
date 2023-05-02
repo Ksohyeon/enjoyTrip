@@ -8,7 +8,7 @@ public class MemberDto {
 	private String emailId;
 	private String emailDomain;
 	private String joinDate;
-	private boolean admin;
+	private int admin;
 	
 	public MemberDto() {}
 
@@ -25,8 +25,6 @@ public class MemberDto {
 	}
 
 
-
-
 	public MemberDto(String userId, String userName, String userPwd, String emailId, String emailDomain,
 			String joinDate) {
 		super();
@@ -38,13 +36,6 @@ public class MemberDto {
 		this.joinDate = joinDate;
 	}
 	
-	public boolean isAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
 
 	public String getUserId() {
 		return userId;
@@ -94,10 +85,18 @@ public class MemberDto {
 		this.joinDate = joinDate;
 	}
 
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberDto [userId=" + userId + ", userName=" + userName + ", userPwd=" + userPwd + ", emailId="
-				+ emailId + ", emailDomain=" + emailDomain + ", joinDate=" + joinDate + "]";
+				+ emailId + ", emailDomain=" + emailDomain + ", joinDate=" + joinDate + ", admin=" + admin + "]";
 	}
 
 }
