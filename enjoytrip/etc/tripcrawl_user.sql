@@ -1,3 +1,4 @@
+
 use tripcrawl;
 drop table if exists members;
 
