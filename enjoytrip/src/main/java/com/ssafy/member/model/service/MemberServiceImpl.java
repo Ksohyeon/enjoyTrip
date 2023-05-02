@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.ssafy.member.model.MemberDto;
+import com.ssafy.member.model.dto.MemberDto;
 import com.ssafy.member.model.mapper.MemberMapper;
 
 @Service
