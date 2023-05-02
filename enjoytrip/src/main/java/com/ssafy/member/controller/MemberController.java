@@ -133,6 +133,13 @@ public class MemberController {
 		return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);
 		
 	}
+
+	@DeleteMapping("/{userid}")
+	public void delete(@PathVariable("userid") String userid, HttpSession session) throws Exception {
+		session.invalidate();
+		memberService.deleteMember(userid);
+		
+
 	
 	@GetMapping("/admin/user")
 	public ResponseEntity<?> userList() throws Exception {

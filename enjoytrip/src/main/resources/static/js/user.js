@@ -173,10 +173,21 @@ document
         document
           .querySelector("#userinfoupdate")
           .setAttribute("style", "display: block;");
+        document
+          .querySelector("#btn-update")
+          .setAttribute("style", "display: none;");
       });
   });
 
-// 히원 정보 삭제(탈퇴)
+// 회원 정보 삭제(탈퇴)
+document.querySelector("#btn-delete").addEventListener("click", function () {
+  let userid = sessionStorage.getItem("userid");
+  console.log(userid);
+  let url = "http://localhost:8080/user/" + userid;
+  fetch(url, { method: "DELETE" });
+  sessionStorage.clear();
+  window.location.reload();
+});
 
 // 로그인
 document.querySelector("#btn-login").addEventListener("click", function () {
