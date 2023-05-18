@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.qna.model.mapper.QnaMapper">
+
+	<select id="search" parameterType="searchCondition" resultType="QnaDto">
+		SELECT qnano, user_id, subject, content
+		FROM qna
+		<if test="key != 'none'">
+			WHERE ${key} like concat('%', #{word}, '%')
+		</if>
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+		<if test="limit">
+			LIMIT #{offset}, #{countPerPage}
+		</if>
+	</select>
+	
+	<!-- qna 등록 -->
+	<insert id="insert" parameterType="QnaDto">
+		INSERT INTO qna (user_id, subject, content)
+		VALUES (#{userId}, #{subject}, #{content})
+	</insert>
+	
+	<!-- qna 상세 조회 -->
+	<select id="select" parameterType="string" resultType="QnaDto">
+		SELECT qnano, user_id, subject, content
+		FROM qna
+		WHERE qnano = #{qnano}
+	</select>
+	
+	<!-- qna 수정 -->
+	<update id="update" parameterType="QnaDto">
+		UPDATE qna
+		SET
+			subject = #{subject},
+			content = #{content}
+		WHERE qnano = #{qnano}
+	</update>
+	
+	<!-- qna 삭제 -->
+	<delete id="delete" parameterType="String">
+		DELETE
+		FROM qna
+		WHERE qnano = #{qnano}
+	</delete>
+
+</mapper>
