@@ -37,6 +37,12 @@ public class MemberDto {
 	}
 	
 
+	public MemberDto(String userId, String userName) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
