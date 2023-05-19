@@ -1,16 +1,19 @@
 package com.ssafy.qna.model.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ssafy.qna.model.dto.QnaDto;
-import com.ssafy.qna.model.dto.SearchCondition;
+import org.springframework.stereotype.Service;
+import com.ssafy.qna.model.dto.QnaDto;
 import com.ssafy.qna.model.mapper.QnaMapper;
 
 @Service
 public class QnaServiceImpl implements QnaService{
-	
+
+	@Autowired
 	private QnaMapper qnaMapper;
 
 	public QnaServiceImpl(QnaMapper qnaMapper) {
@@ -19,28 +22,30 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public List<QnaDto> search(SearchCondition condition) throws Exception {
-		return qnaMapper.search(condition);
+	public int createQna(QnaDto qnaDto) throws SQLException {
+		return qnaMapper.createQna(qnaDto);
 	}
 
 	@Override
-	public int insert(QnaDto qna) throws Exception {
-		return qnaMapper.insert(qna);
+	public List<QnaDto> listQna() throws SQLException {
+		return qnaMapper.listQna();
 	}
 
 	@Override
-	public QnaDto select(String qnano) throws Exception {
-		return qnaMapper.select(qnano);
+	public QnaDto getQna(String no) throws SQLException {
+		return qnaMapper.getQna(no);
 	}
 
 	@Override
-	public int update(QnaDto qna) throws Exception {
-		return qnaMapper.update(qna);
+	public int updateQna(QnaDto qnaDto) throws SQLException {
+		return qnaMapper.updateQna(qnaDto);
+		
 	}
 
 	@Override
-	public int delete(String qnano) throws Exception {		
-		return qnaMapper.delete(qnano);
+	public int deleteQna(String no) throws SQLException {
+		return qnaMapper.deleteQna(no);
+		
 	}
-
+	
 }

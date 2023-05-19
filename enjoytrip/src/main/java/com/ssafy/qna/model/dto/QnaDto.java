@@ -1,46 +1,48 @@
 package com.ssafy.qna.model.dto;
 
+import com.ssafy.member.model.dto.MemberDto;
+
 public class QnaDto {
-	
-	private String user_id;
-	private String qnano;
-	private String subject;
+	private String no;
+	private String title;
 	private String content;
+	private String category;
+	private String createdAt;
+	private MemberDto author;
 	
-	public QnaDto() {
+	public QnaDto() {}
+	public QnaDto(String no, String title, String content, String category, String createdAt, MemberDto author) {
 		super();
-	}
-
-	public QnaDto(String userId, String qnano, String subject, String content) {
-		super();
-		this.user_id = userId;
-		this.qnano = qnano;
-		this.subject = subject;
+		this.no = no;
+		this.title = title;
 		this.content = content;
+		this.category = category;
+		this.createdAt = createdAt;
+		this.author = author;
 	}
 
-	public String getUserId() {
-		return user_id;
+	public QnaDto(String title, String content, String category, MemberDto author) { 
+		super();
+		this.title = title;
+		this.content = content;
+		this.category = category;
+		this.author = author;
 	}
 
-	public void setUserId(String userId) {
-		this.user_id = userId;
+	public String getNo() {
+		return no;
 	}
 
-	public String getQnano() {
-		return qnano;
+	public void setNo(String no) {
+		this.no = no;
 	}
 
-	public void setQnano(String qnano) {
-		this.qnano = qnano;
+	public String getTitle() {
+		return title;
 	}
 
-	public String getSubject() {
-		return subject;
-	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {
@@ -51,10 +53,24 @@ public class QnaDto {
 		this.content = content;
 	}
 
-	@Override
-	public String toString() {
-		return "QnaDto [userId=" + user_id + ", qnano=" + qnano + ", subject=" + subject + ", content=" + content + "]";
+	public String getCategory() {
+		return category;
 	}
 
-	
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+	@Override
+	public String toString() {
+		return "QnaDto [no=" + no + ", title=" + title + ", content=" + content + ", category=" + category
+				+ ", createdAt=" + createdAt + ", author=" + author + "]";
+	}
 }

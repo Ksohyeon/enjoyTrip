@@ -1,20 +1,16 @@
 package com.ssafy.qna.model.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.qna.model.dto.QnaDto;
-import com.ssafy.qna.model.dto.SearchCondition;
 
 public interface QnaService {
 
-	List<QnaDto> search(SearchCondition condition) throws Exception;
-
-	int insert(QnaDto qna) throws Exception;
-
-	QnaDto select(String qnano) throws Exception;
-
-	int update(QnaDto qna) throws Exception;
-
-	int delete(String qnano)throws Exception;
+	int createQna(QnaDto qnaDto) throws SQLException;
+	List<QnaDto> listQna() throws SQLException;
+	QnaDto getQna(String no) throws SQLException;
+	int updateQna(QnaDto qnaDto) throws SQLException;
+	int deleteQna(String no) throws SQLException;
 
 }
