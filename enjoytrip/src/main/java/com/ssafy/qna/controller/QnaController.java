@@ -36,7 +36,7 @@ public class QnaController {
 	public QnaController(QnaService qnaService) {
 		this.qnaService = qnaService;
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<?> listQna() throws Exception{
 		List<QnaDto> list = qnaService.listQna();

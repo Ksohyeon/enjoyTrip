@@ -73,8 +73,4 @@ public class QnaDto {
 		return "QnaDto [no=" + no + ", title=" + title + ", content=" + content + ", category=" + category
 				+ ", createdAt=" + createdAt + ", author=" + author + "]";
 	}
-
-	
-	
-	
 }

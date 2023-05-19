@@ -12,4 +12,5 @@ public interface QnaService {
 	QnaDto getQna(String no) throws SQLException;
 	int updateQna(QnaDto qnaDto) throws SQLException;
 	int deleteQna(String no) throws SQLException;
+
 }

@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.ssafy.qna.model.dto.QnaDto;
+import org.springframework.stereotype.Service;
 import com.ssafy.qna.model.dto.QnaDto;
 import com.ssafy.qna.model.mapper.QnaMapper;
 
 @Service
 public class QnaServiceImpl implements QnaService{
+
 	@Autowired
 	private QnaMapper qnaMapper;
 
