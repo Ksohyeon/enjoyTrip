@@ -9,10 +9,8 @@ public class QnaDto {
 	private String category;
 	private String createdAt;
 	private MemberDto author;
-	public QnaDto() {}
-
 	
-
+	public QnaDto() {}
 	public QnaDto(String no, String title, String content, String category, String createdAt, MemberDto author) {
 		super();
 		this.no = no;
@@ -23,12 +21,12 @@ public class QnaDto {
 		this.author = author;
 	}
 
-	public QnaDto(String title, String content, String category, String userId) { 
+	public QnaDto(String title, String content, String category, MemberDto author) { 
 		super();
 		this.title = title;
 		this.content = content;
 		this.category = category;
-		this.author.setUserId(userId);
+		this.author = author;
 	}
 
 	public String getNo() {
@@ -70,12 +68,13 @@ public class QnaDto {
 	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
-
 	@Override
 	public String toString() {
 		return "QnaDto [no=" + no + ", title=" + title + ", content=" + content + ", category=" + category
-				+ ", createdAt=" + createdAt + "]";
+				+ ", createdAt=" + createdAt + ", author=" + author + "]";
 	}
+
+	
 	
 	
 }

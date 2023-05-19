@@ -37,12 +37,12 @@
 	
 	<insert id="createQna">
 		insert into qna (title, category, content, author)
-		values (#{title}, #{category}, #{content}, #{author.getUserId()})
+		values (#{title}, #{category}, #{content}, #{author.userId})
 	</insert>
 	
 	<update id="updateQna">
 		update qna
-		title=#{title}, content=#{content}, category=#{category}
+		set title=#{title}, content=#{content}, category=#{category}
 		where no=#{no} 
 	</update>
 	

@@ -35,14 +35,14 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public void updateQna(QnaDto qnaDto) throws SQLException {
-		qnaMapper.updateQna(qnaDto);
+	public int updateQna(QnaDto qnaDto) throws SQLException {
+		return qnaMapper.updateQna(qnaDto);
 		
 	}
 
 	@Override
-	public void deleteQna(String no) throws SQLException {
-		qnaMapper.deleteQna(no);
+	public int deleteQna(String no) throws SQLException {
+		return qnaMapper.deleteQna(no);
 		
 	}
 	
