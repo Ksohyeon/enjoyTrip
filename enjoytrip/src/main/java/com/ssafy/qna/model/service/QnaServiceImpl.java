@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.ssafy.qna.model.dto.QnaCommentDto;
 import com.ssafy.qna.model.dto.QnaDto;
 import org.springframework.stereotype.Service;
 import com.ssafy.qna.model.dto.QnaDto;
@@ -17,7 +19,6 @@ public class QnaServiceImpl implements QnaService{
 	private QnaMapper qnaMapper;
 
 	public QnaServiceImpl(QnaMapper qnaMapper) {
-		super();
 		this.qnaMapper = qnaMapper;
 	}
 
@@ -46,6 +47,27 @@ public class QnaServiceImpl implements QnaService{
 	public int deleteQna(String no) throws SQLException {
 		return qnaMapper.deleteQna(no);
 		
+	}
+
+	@Override
+	public int createQnaComment(QnaCommentDto qnaCommentDto) throws SQLException {
+		return qnaMapper.createQnaComment(qnaCommentDto);
+	}
+
+
+	@Override
+	public int updateQnaComment(QnaCommentDto qnaCommentDto) throws SQLException {
+		return qnaMapper.updateQnaComment(qnaCommentDto);
+	}
+
+	@Override
+	public int deleteQnaComment(String no) throws SQLException {
+		return qnaMapper.deleteQnaComment(no);
+	}
+
+	@Override
+	public List<QnaCommentDto> listQnaComment(String qnaNo) throws SQLException {
+		return qnaMapper.listQnaComment(qnaNo);
 	}
 	
 }

@@ -21,6 +21,12 @@ public class QnaDto {
 		this.author = author;
 	}
 
+	public MemberDto getAuthor() {
+		return author;
+	}
+	public void setAuthor(MemberDto author) {
+		this.author = author;
+	}
 	public QnaDto(String title, String content, String category, MemberDto author) { 
 		super();
 		this.title = title;
@@ -73,4 +79,6 @@ public class QnaDto {
 		return "QnaDto [no=" + no + ", title=" + title + ", content=" + content + ", category=" + category
 				+ ", createdAt=" + createdAt + ", author=" + author + "]";
 	}
+	
+	
 }
