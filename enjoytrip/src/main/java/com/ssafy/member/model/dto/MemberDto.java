@@ -3,6 +3,7 @@ package com.ssafy.member.model.dto;
 public class MemberDto {
 
 	private String userId;
+	private String nickName;
 	private String userName;
 	private String userPwd;
 	private String emailId;
@@ -25,10 +26,11 @@ public class MemberDto {
 	}
 
 
-	public MemberDto(String userId, String userName, String userPwd, String emailId, String emailDomain,
+	public MemberDto(String userId, String nickName, String userName, String userPwd, String emailId, String emailDomain,
 			String joinDate) {
 		super();
 		this.userId = userId;
+		this.nickName = nickName;
 		this.userName = userName;
 		this.userPwd = userPwd;
 		this.emailId = emailId;
@@ -36,13 +38,21 @@ public class MemberDto {
 		this.joinDate = joinDate;
 	}
 	
-
-	public MemberDto(String userId, String userName) {
+	public MemberDto(String userId, String nickName) {
 		super();
 		this.userId = userId;
-		this.userName = userName;
+		this.nickName = nickName;
 	}
+
 	
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	public MemberDto(String userId) {
 		super();
 		this.userId = userId;
