@@ -2,7 +2,7 @@ use tripcrawl;
 DROP TABLE IF EXISTS `place`;
 
 CREATE TABLE place (
-	placeno int PRIMARY KEY,	
+	no int PRIMARY KEY,	
 	user_id VARCHAR(20) NOT NULL,
 	lat VARCHAR(32) NOT NULL,
 	lon VARCHAR(32) NOT NULL,

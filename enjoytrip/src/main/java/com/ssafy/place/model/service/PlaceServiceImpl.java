@@ -8,18 +8,40 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.place.model.dto.PlaceDto;
 import com.ssafy.place.model.mapper.PlaceMapper;
+
 @Service
-public class PlaceServiceImpl implements PlaceService{
-	
+public class PlaceServiceImpl implements PlaceService {
+
 	private PlaceMapper placeMapper;
-	
+
 	@Autowired
 	public PlaceServiceImpl(PlaceMapper placeMapper) {
 		this.placeMapper = placeMapper;
 	}
+
 	@Override
 	public List<PlaceDto> placeList() throws SQLException {
 		return placeMapper.placeList();
+	}
+
+	@Override
+	public PlaceDto getPlace(String no) throws SQLException {
+		return placeMapper.getPlace(no);
+	}
+
+	@Override
+	public int createPlace(PlaceDto placeDto) {
+		return placeMapper.createPlace(placeDto);
+	}
+
+	@Override
+	public int updatePlace(PlaceDto placeDto) {
+		return placeMapper.updatePlace(placeDto);
+	}
+
+	@Override
+	public int deletePlace(String no) {
+		return placeMapper.deletePlace(no);
 	}
 
 }

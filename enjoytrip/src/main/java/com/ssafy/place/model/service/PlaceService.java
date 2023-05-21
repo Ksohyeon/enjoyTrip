@@ -6,6 +6,10 @@ import java.util.List;
 import com.ssafy.place.model.dto.PlaceDto;
 
 public interface PlaceService {
-	public List<PlaceDto> placeList() throws SQLException;
+	List<PlaceDto> placeList() throws SQLException;
+	PlaceDto getPlace(String no) throws SQLException;
+	int createPlace(PlaceDto placeDto);
+	int deletePlace(String no);
+	int updatePlace(PlaceDto placeDto);
 
 }

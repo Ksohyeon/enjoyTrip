@@ -8,4 +8,8 @@ import com.ssafy.place.model.dto.PlaceDto;
 @Mapper
 public interface PlaceMapper {
 	List<PlaceDto> placeList() throws SQLException;
+	PlaceDto getPlace(String no) throws SQLException;
+	int createPlace(PlaceDto placeDto);
+	int deletePlace(String no);
+	int updatePlace(PlaceDto placeDto);
 }
