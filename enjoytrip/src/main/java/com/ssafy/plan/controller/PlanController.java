@@ -90,4 +90,20 @@ public class PlanController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
+	
+	@PostMapping("/{no}/like/{user_id}")
+	public ResponseEntity<String> likePlan(@PathVariable("no") String no, @PathVariable("user_id") String userId) throws Exception{
+		if (planService.likePlan(no, userId) != 0) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
+	
+	@DeleteMapping("/{no}/like/{user_id}")
+	public ResponseEntity<String> unlikePlan(@PathVariable("no") String no, @PathVariable("user_id") String userId) throws Exception{
+		if (planService.unLikePlan(no, userId) != 0) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
 }

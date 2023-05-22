@@ -15,7 +15,7 @@ public class PlanDto {
 	private String theme;
 	private MemberDto author;
 	private List<AttrDto> places;
-	
+	private List<MemberDto> likeUsers;
 	
 	
 	public PlanDto() {}
@@ -128,13 +128,20 @@ public class PlanDto {
 		this.places = places;
 	}
 
+	public List<MemberDto> getLikeUsers() {
+		return likeUsers;
+	}
+
+	public void setLikeUsers(List<MemberDto> likeUsers) {
+		this.likeUsers = likeUsers;
+	}
+
 	@Override
 	public String toString() {
-		return "PlanDto [no=" + no + ", author=" + author + ", title=" + title + ", content=" + content + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", createdAt=" + createdAt + ", hit=" + hit + ", theme=" + theme
-				+ ", places=" + places + "]";
+		return "PlanDto [no=" + no + ", title=" + title + ", content=" + content + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", createdAt=" + createdAt + ", hit=" + hit + ", theme=" + theme
+				+ ", author=" + author + ", places=" + places + ", likeUsers=" + likeUsers + "]";
 	}
-	
-	
+
 	
 }

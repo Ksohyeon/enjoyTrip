@@ -41,6 +41,7 @@ public class PlanServiceImpl implements PlanService{
 	public PlanDto getPlan(String planNo) throws SQLException {
 		PlanDto planDto = planMapper.getPlan(planNo);
 		planDto.setPlaces(planMapper.listAttr(planNo));
+		planDto.setLikeUsers(planMapper.listLikeUsers(planNo));
 		planMapper.updateHit(planNo);
 		return planDto;
 	}
@@ -61,5 +62,16 @@ public class PlanServiceImpl implements PlanService{
 	public int deletePlan(String planNo) throws SQLException {
 		return planMapper.deletePlan(planNo);
 	}
+
+	@Override
+	public int likePlan(String planNo, String userId) throws SQLException {
+		return planMapper.likePlan(planNo, userId);
+	}
+
+	@Override
+	public int unLikePlan(String planNo, String userId) throws SQLException {
+		return planMapper.unLikePlan(planNo, userId);
+	}
+
 
 }
