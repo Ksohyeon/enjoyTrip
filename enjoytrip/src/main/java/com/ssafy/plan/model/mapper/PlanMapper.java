@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.plan.model.dto.AttrDto;
 import com.ssafy.plan.model.dto.PlanDto;
 @Mapper
 public interface PlanMapper {
@@ -13,4 +14,8 @@ public interface PlanMapper {
 	PlanDto getPlan(String planNo) throws SQLException;
 	int updatePlan(PlanDto planDto) throws SQLException;
 	int deletePlan(String planNo) throws SQLException;
+	
+	int createAttr(String attrNo, String planNo, int order) throws SQLException;
+	List<AttrDto> listAttr(String planNo) throws SQLException;
+	int deleteAttr(String planNo) throws SQLException;
 }

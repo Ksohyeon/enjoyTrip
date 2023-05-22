@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.plan.model.dto.AttrDto;
 import com.ssafy.plan.model.dto.PlanDto;
 import com.ssafy.plan.model.mapper.PlanMapper;
 
@@ -20,33 +22,42 @@ public class PlanServiceImpl implements PlanService{
 	}
 
 	@Override
-	public int createPlan(PlanDto planDto) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	@Transactional
+	public int createPlan(PlanDto planDto, List<String> places) throws SQLException {
+		planMapper.createPlan(planDto);
+		for (int i=1; i<=places.size(); i++) {
+			planMapper.createAttr(places.get(i), planDto.getNo(), i);
+		}
+		return 1;
 	}
 
 	@Override
 	public List<PlanDto> listPlan() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return planMapper.listPlan();
 	}
 
 	@Override
 	public PlanDto getPlan(String planNo) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		PlanDto planDto = planMapper.getPlan(planNo);
+		planDto.setPlaces(planMapper.listAttr(planNo));
+		return planDto;
 	}
 
 	@Override
-	public int updatePlan(PlanDto planDto) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	@Transactional
+	public int updatePlan(PlanDto planDto, List<String> places) throws SQLException {
+		planMapper.updatePlan(planDto);
+		String planNo = planDto.getNo();
+		planMapper.deleteAttr(planNo);
+		for (int i=1; i<=places.size(); i++) {
+			planMapper.createAttr(places.get(i), planNo, i);
+		}
+		return 1;
 	}
 
 	@Override
 	public int deletePlan(String planNo) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return planMapper.deletePlan(planNo);
 	}
 
 }

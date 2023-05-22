@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.member.model.mapper.PlanMapper">
+
+	<resultMap type="attrDto" id="attr">
+		<result column="content_no" property="attrNo"/>
+		<result column="img" property="img"/>
+		<result column="title" property="title"/>
+		<result column="addr1" property="address"/>
+		<result column="latitude" property="lat"/>
+		<result column="longitude" property="lon"/>
+		<result column="overview" property="overView"/>
+		<result column="order" property="order"/>
+	</resultMap>
+	
+	<resultMap type="memberDto" id="author">
+		<result column="user_id" property="userId"/>
+		<result column="nickname" property="nickName"/>
+	</resultMap>	
+	
+	<resultMap type="planDto" id="plan">
+		<result column="plan_id" property="no"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="start_date" property="startDate"/>
+		<result column="hit" property="hit"/>
+		<result column="theme" property="theme"/>
+		<association property="author" resultMap="author">
+			<result column="user_id" property="userId" />
+			<result column="nickname" property="nickName" />
+		</association>
+	</resultMap>
+	
+	<select id="listPlan" resultMap="plan">
+	
+	</select>
+	`
+</mapper>
