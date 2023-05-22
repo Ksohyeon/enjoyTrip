@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.plan.model.mapper.PlanMapper">
+
+	<resultMap type="attrDto" id="attr">
+		<result column="content_id" property="attrNo"/>
+		<result column="first_image" property="img"/>
+		<result column="title" property="title"/>
+		<result column="addr1" property="address"/>
+		<result column="latitude" property="lat"/>
+		<result column="longitude" property="lon"/>
+		<result column="overview" property="overView"/>
+		<result column="place_order" property="order"/>
+	</resultMap>
+	
+	<resultMap type="memberDto" id="author">
+		<result column="user_id" property="userId"/>
+		<result column="nickname" property="nickName"/>
+	</resultMap>	
+	
+	<resultMap type="planDto" id="plan">
+		<result column="plan_id" property="no"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="hit" property="hit"/>
+		<result column="theme" property="theme"/>
+		<association property="author" resultMap="author">
+			<result column="user_id" property="userId" />
+			<result column="nickname" property="nickName" />
+		</association>
+	</resultMap>
+	
+	<select id="listPlan" resultMap="plan">
+		select p.plan_id, p.title, p.content, p.start_date, p.end_date, p.created_at, p.hit, p.theme, m.user_id, m.nickname
+		from plan p
+		join members m on p.user_id = m.user_id
+		order by plan_id desc
+	</select>
+	
+	<select id="getPlan" resultMap="plan">
+		select p.plan_id, p.title, p.content, p.start_date, p.end_date, p.created_at, p.hit, p.theme, m.user_id, m.nickname
+		from plan p
+		join members m on p.user_id = m.user_id
+		where p.plan_id = #{no}
+	</select>
+	
+	<insert id="createPlan" useGeneratedKeys="true" keyProperty="no">
+		insert into plan (title, content, start_date, end_date, user_id, theme)
+		values (#{title},#{content},#{startDate},#{endDate},#{author.userId},#{theme})
+	</insert>
+	
+	<update id="updatePlan">
+		update plan
+		<trim prefix="set" suffixOverrides=",">
+			<if test="title != null">title = #{title},</if>
+			<if test="content != null">content = #{content},</if>
+			<if test="startDate != null">start_date = #{startDate},</if>
+			<if test="endDate != null">end_date = #{endDate},</if>
+			<if test="theme != null">theme = #{theme},</if>
+		</trim>
+		where plan_id=#{no}
+	</update>
+	
+	<update id="updateHit">
+		update plan
+		set hit = hit+1
+		where plan_id=#{planNo};
+	</update>
+	
+	<delete id="deletePlan">
+		delete
+		from plan
+		where plan_id=#{no}
+	</delete>
+	
+	<insert id="createAttr">
+		insert into plan_places (content_id, plan_id, place_order)
+		values (#{attrNo}, #{planNo}, #{order})
+	</insert>
+	
+	<select id="listAttr" resultMap="attr">
+		select pp.plan_id, pp.content_id, a.first_image, a.title, a.addr1, a.latitude, a.longitude, ad.overview, pp.place_order
+		from plan_places pp
+		join attraction_info a on a.content_id = pp.content_id
+		join attraction_description ad on a.content_id = ad.content_id
+		where pp.plan_id = #{planNo}
+		order by pp.place_order;
+	</select>
+	
+	<delete id="deleteAttr">
+		delete
+		from plan_places
+		where plan_id = #{planNo}
+	</delete>
+	
+</mapper>

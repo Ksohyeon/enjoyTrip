@@ -11,6 +11,7 @@ public class QnaCommentDto {
 	
 
 	
+	public QnaCommentDto() {};
 	public QnaCommentDto(String qnaNo, String commentNo, String commentContent, String createdAt, String userId, String nickName) {
 		super();
 		this.qnaNo = qnaNo;
