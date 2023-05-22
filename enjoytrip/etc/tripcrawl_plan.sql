@@ -45,6 +45,21 @@ values (125406, 1, 3);
 Insert into plan_places (content_id, plan_id, place_order)
 values (125407, 1, 2);
 
+CREATE TABLE plan_likes (
+	plan_likes_id INT NOT NULL AUTO_INCREMENT,
+    plan_id INT NOT NULL,
+    user_id VARCHAR(20) NOT NULL,
+    PRIMARY KEY (`plan_likes_id`),
+    FOREIGN KEY (user_id) REFERENCES members(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (plan_id) REFERENCES plan(plan_id) ON DELETE CASCADE
+);
+
+Insert into plan_likes (plan_id, user_id)
+values (1, 'ssafy');
+
+Insert into plan_likes (plan_id, user_id)
+values (1, 'admin');
+
 select pp.plan_id, pp.content_id, a.first_image, a.title, a.addr1, a.latitude, a.longitude, ad.overview, pp.place_order
 from plan_places pp
 join attraction_info a on a.content_id = pp.content_id

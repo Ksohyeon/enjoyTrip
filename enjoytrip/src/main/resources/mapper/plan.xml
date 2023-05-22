@@ -98,4 +98,21 @@
 		where plan_id = #{planNo}
 	</delete>
 	
+	<select id="listLikeUsers" resultMap="author">
+		select m.user_id, m.nickname
+		from plan_likes p
+		join members m on p.user_id = m.user_id
+		where p.plan_id = 1;
+	</select>
+	
+	<insert id="likePlan">
+		insert into plan_likes (plan_id, user_id)
+		values (#{planNo}, #{userId})
+	</insert>
+	
+	<delete id="unLikePlan">
+		delete 
+		from plan_likes
+		where plan_id = #{planNo} and user_id= #{userId}
+	</delete>
 </mapper>

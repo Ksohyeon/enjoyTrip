@@ -11,4 +11,7 @@ public interface PlanService {
 	PlanDto getPlan(String planNo) throws SQLException;
 	int updatePlan(PlanDto planDto, List<Integer> places) throws SQLException;
 	int deletePlan(String planNo) throws SQLException;
+	
+	int likePlan(String planNo, String userId) throws SQLException;
+	int unLikePlan(String planNo, String userId) throws SQLException;
 }
