@@ -23,16 +23,17 @@ public class PlanServiceImpl implements PlanService{
 
 	@Override
 	@Transactional
-	public int createPlan(PlanDto planDto, List<String> places) throws SQLException {
+	public int createPlan(PlanDto planDto, List<Integer> places) throws SQLException {
 		planMapper.createPlan(planDto);
-		for (int i=1; i<=places.size(); i++) {
-			planMapper.createAttr(places.get(i), planDto.getNo(), i);
+		for (int i=0; i<places.size(); i++) {
+			planMapper.createAttr(places.get(i), planDto.getNo(), i+1);
 		}
 		return 1;
 	}
 
 	@Override
 	public List<PlanDto> listPlan() throws SQLException {
+		
 		return planMapper.listPlan();
 	}
 
@@ -40,17 +41,18 @@ public class PlanServiceImpl implements PlanService{
 	public PlanDto getPlan(String planNo) throws SQLException {
 		PlanDto planDto = planMapper.getPlan(planNo);
 		planDto.setPlaces(planMapper.listAttr(planNo));
+		planMapper.updateHit(planNo);
 		return planDto;
 	}
 
 	@Override
 	@Transactional
-	public int updatePlan(PlanDto planDto, List<String> places) throws SQLException {
+	public int updatePlan(PlanDto planDto, List<Integer> places) throws SQLException {
 		planMapper.updatePlan(planDto);
 		String planNo = planDto.getNo();
 		planMapper.deleteAttr(planNo);
-		for (int i=1; i<=places.size(); i++) {
-			planMapper.createAttr(places.get(i), planNo, i);
+		for (int i=0; i<places.size(); i++) {
+			planMapper.createAttr(places.get(i), planNo, i+1);
 		}
 		return 1;
 	}

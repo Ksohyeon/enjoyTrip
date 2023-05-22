@@ -1,6 +1,7 @@
 package com.ssafy.plan.model.dto;
 
 public class AttrDto {
+	String planNo;
 	String attrNo;
 	String img;
 	String title;
@@ -8,15 +9,14 @@ public class AttrDto {
 	String lat;
 	String lon;
 	String overView;
-	String planNo;
 	int order;
 	
 	public AttrDto() {}
 
 	// 읽을 시 필요한 생성자
-	public AttrDto(String attrNo, String img, String title, String address, String lat, String lon, String overView,
-			int order) {
-		super();
+	public AttrDto(String planNo, String attrNo, String img, String title, String address, String lat, String lon,
+			String overView, int order) {
+		this.planNo = planNo;
 		this.attrNo = attrNo;
 		this.img = img;
 		this.title = title;
@@ -27,13 +27,24 @@ public class AttrDto {
 		this.order = order;
 	}
 
+	public void setPlanNo(String planNo) {
+		this.planNo = planNo;
+	}
+
+	
+	public String getTitle() {
+		return title;
+	}
+
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 
 	public String getPlanNo() {
 		return planNo;
-	}
-
-	public void setPlanNo(String planNo) {
-		this.planNo = planNo;
 	}
 
 	public String getAttrNo() {
@@ -47,12 +58,6 @@ public class AttrDto {
 	}
 	public void setImg(String img) {
 		this.img = img;
-	}
-	public String gettitle() {
-		return title;
-	}
-	public void settitle(String title) {
-		this.title = title;
 	}
 	public String getAddress() {
 		return address;

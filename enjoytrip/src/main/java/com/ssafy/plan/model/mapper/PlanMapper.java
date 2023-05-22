@@ -14,8 +14,10 @@ public interface PlanMapper {
 	PlanDto getPlan(String planNo) throws SQLException;
 	int updatePlan(PlanDto planDto) throws SQLException;
 	int deletePlan(String planNo) throws SQLException;
+	void updateHit(String planNo) throws SQLException;
 	
-	int createAttr(String attrNo, String planNo, int order) throws SQLException;
+	
+	int createAttr(Integer attrNo, String planNo, int order) throws SQLException;
 	List<AttrDto> listAttr(String planNo) throws SQLException;
 	int deleteAttr(String planNo) throws SQLException;
 }

@@ -23,13 +23,14 @@ public class PlanDto {
 	// 작성시 필요한 생성자
 	public PlanDto(String title, String content, String startDate, String endDate, String theme, MemberDto author) {
 		super();
-		this.author = author;
 		this.title = title;
 		this.content = content;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.theme = theme;
+		this.author = author;
 	}
+	
 
 	// 리스트 읽을시 필요한 생성자
 	public PlanDto(String no, String title, String startDate, String endDate, String createdAt,
@@ -43,7 +44,10 @@ public class PlanDto {
 		this.createdAt = createdAt;
 		this.hit = hit;
 		this.theme = theme;
+		this.author = author;
 	}
+
+	
 
 	// 디테일 읽을시 필요한 생성자
 	public PlanDto(String no, String title, String content, String startDate, String endDate,
