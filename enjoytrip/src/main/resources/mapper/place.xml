@@ -6,7 +6,7 @@
 
 	<resultMap type="memberDto" id="author">
 		<result column="user_id" property="userId" />
-		<result column="user_name" property="userName" />
+		<result column="nickname" property="nickName" />
 	</resultMap>
 
 	<resultMap type="placeDto" id="place">
@@ -19,33 +19,44 @@
 		<result column="date" property="date" />
 		<result column="created_at" property="created_at" />
 		<result column="image" property="image" />
-		<association property="author" resultMap="author" />
+		<association property="author" resultMap="author">
+			<result column="user_id" property="userId" />
+			<result column="nickname" property="nickName" />
+		</association>
 	</resultMap>
 
 	<select id="placeList" resultMap="place">
-		select p.no, p.lat, p.lon, p.title, p.content, p.hit, p.date, p.created_at, p.image, m.user_id, m.user_name
+		select p.no, p.lat, p.lon,
+		p.title, p.content, p.hit, p.date, p.created_at, p.image, m.user_id,
+		m.user_name
 		from place p
 		join members m on p.author = m.user_id
 	</select>
 
 	<select id="getPlace" resultMap="place">
-		select p.no, p.lat, p.lon, p.title, p.content, p.hit, p.date, p.created_at, p.image, m.user_id, m.user_name
+		select p.no, p.lat, p.lon,
+		p.title, p.content, p.hit, p.date, p.created_at, p.image, m.user_id,
+		m.user_name
 		from place p
 		join members m on p.author = m.user_id
-		where no = #{no}
+		where no
+		= #{no}
 		order by hit desc;
 	</select>
-	
+
 	<insert id="createPlace">
-		insert into place (lat, lon, title, content, date, image, author)
-		values (#{lat}, #{lon}, #{title}, #{content}, #{date}, #{image}, #{author.userId})
+		insert into place (lat, lon, title, content, date,
+		image, author)
+		values (#{lat}, #{lon}, #{title}, #{content}, #{date},
+		#{image}, #{author.userId})
 	</insert>
-	
+
 	<update id="updatePlace">
 		update place
-		set lat=#{lat}, lon=#{lon}, title=#{title}, content=#{content}, date=#{date}, image=#{image}
+		set lat=#{lat}, lon=#{lon},
+		title=#{title}, content=#{content}, date=#{date}, image=#{image}
 	</update>
-	
+
 	<delete id="deletePlace">
 		delete
 		from place

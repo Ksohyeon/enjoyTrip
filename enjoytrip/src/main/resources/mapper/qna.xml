@@ -4,48 +4,56 @@
 
 <mapper namespace="com.ssafy.qna.model.mapper.QnaMapper">
 
-		
+
 	<resultMap type="memberDto" id="author">
-		<result column="user_id" property="userId"/>
-		<result column="user_name" property="userName"/>
-	</resultMap>	
-		
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+	</resultMap>
+
 	<resultMap type="qnaDto" id="qna">
-		<result column="no" property="no"/>
+		<result column="no" property="no" />
 		<result column="title" property="title" />
 		<result column="category" property="category" />
 		<result column="content" property="content" />
 		<result column="created_at" property="createdAt" />
-		<association property="author" resultMap="author"/>
+		<association property="author" resultMap="author">
+			<result column="user_id" property="userId" />
+			<result column="user_name" property="userName" />
+		</association>
 	</resultMap>
-	
-	
-	
+
+
+
 	<select id="getQna" resultMap="qna">
-		select q.no, q.title, q.category, q.content, q.created_at, m.user_id, m.user_name
+		select q.no, q.title, q.category,
+		q.content, q.created_at, m.user_id, m.user_name
 		from qna q
-		join members m on q.author = m.user_id
+		join members
+		m on q.author = m.user_id
 		where no = #{no}
 	</select>
-	
+
 	<select id="listQna" resultMap="qna">
-		select q.no, q.title, q.category, q.content, q.created_at, m.user_id, m.user_name
+		select q.no, q.title, q.category,
+		q.content, q.created_at, m.user_id, m.user_name
 		from qna q
-		join members m on q.author = m.user_id
+		join members
+		m on q.author = m.user_id
 		order by no desc;
 	</select>
-	
+
 	<insert id="createQna">
 		insert into qna (title, category, content, author)
 		values (#{title}, #{category}, #{content}, #{author.userId})
 	</insert>
-	
+
 	<update id="updateQna">
 		update qna
-		set title=#{title}, content=#{content}, category=#{category}
-		where no=#{no} 
+		set title=#{title}, content=#{content},
+		category=#{category}
+		where no=#{no}
 	</update>
-	
+
 	<delete id="deleteQna">
 		delete
 		from qna

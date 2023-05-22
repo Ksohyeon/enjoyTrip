@@ -14,6 +14,7 @@ public class PlaceDto {
 	private String image;
 	private MemberDto author;
 
+	public PlaceDto() {}
 	public PlaceDto(String no, String lat, String lon, String title, String content, int hit, String date,
 			String created_at, String image, MemberDto author) {
 		super();
