@@ -30,16 +30,17 @@ public class PlaceDto {
 		this.author = author;
 	}
 
-	public PlaceDto(String lat, String lon, String title, String content, String date, String image) {
+	public PlaceDto(String no,String lat, String lon, String title, String content, String date, String image, MemberDto author) {
 		super();
+		this.no = no;
 		this.lat = lat;
 		this.lon = lon;
 		this.title = title;
 		this.content = content;
 		this.date = date;
 		this.image = image;
+		this.author = author;
 	}
-
 	public String getNo() {
 		return no;
 	}

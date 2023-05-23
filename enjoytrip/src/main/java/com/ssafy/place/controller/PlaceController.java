@@ -1,10 +1,19 @@
 package com.ssafy.place.controller;
 
+import static java.io.File.separator;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,11 +24,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.ssafy.member.model.dto.MemberDto;
 import com.ssafy.place.model.dto.PlaceDto;
 import com.ssafy.place.model.service.PlaceService;
-import com.ssafy.qna.model.dto.QnaDto;
 
 
 @RestController
@@ -56,10 +67,34 @@ public class PlaceController {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); // 204
 		}
 	}
+
+	@Value("${upload.path}")
+	private String uploadPath;
 	
-	@PostMapping
-	public ResponseEntity<String> WritePlace(@RequestBody Map<String, String> map) throws Exception{
-		PlaceDto placeDto = new PlaceDto(map.get("lat"),map.get("lon"),map.get("title"),map.get("content"),map.get("date"),map.get("image"));
+	@PostMapping(consumes = "multipart/form-data")
+	public ResponseEntity<String> WritePlace(
+	        @RequestParam("file") MultipartFile file,
+	        @RequestParam("no") String no,
+	        @RequestParam("lat") String lat,
+	        @RequestParam("lon") String lon,
+	        @RequestParam("title") String title,
+	        @RequestParam("content") String content,
+	        @RequestParam("date") String date,
+	        @RequestParam("userId") String userId) throws Exception {
+		String image = null;
+
+		String RESOURCE_PATH =
+			      new ClassPathResource(uploadPath).getPath() + separator;
+		if (!file.isEmpty()) {
+			System.out.println(RESOURCE_PATH);
+			String fileName = file.getOriginalFilename(); // 업로드된 파일명
+	        Path filePath = Paths.get(RESOURCE_PATH, fileName); // 저장할 경로 설정
+	        Files.createDirectories(filePath.getParent()); // 부모 디렉토리가 존재하지 않으면 생성
+	        file.transferTo(filePath); // 파일 저장
+	        image = filePath.toString().split("uploads\\\\")[1]; // 파일 경로 저장
+        }
+		PlaceDto placeDto = new PlaceDto(no, lat, lon, title, content, date, image, new MemberDto(userId));
+				
 		if(placeService.createPlace(placeDto) != 0) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
@@ -67,9 +102,23 @@ public class PlaceController {
 	}
 	
 	@PutMapping("/{no}")
-	public ResponseEntity<?> modifyPlace(@PathVariable("no") String no, @RequestBody PlaceDto placeDto) throws Exception {
-		placeDto.setNo(no);
-		System.out.println(placeDto);
+	public ResponseEntity<?> modifyPlace(@PathVariable("no") String no, @RequestBody  Map<String, Object> map) throws Exception {
+		String image = null;
+		MultipartFile file = (MultipartFile) map.get("file");
+		if (!file.isEmpty()) {
+            String fileName = file.getOriginalFilename(); // 업로드된 파일명
+
+            // 파일을 저장할 경로 설정
+            Path filePath = Paths.get(uploadPath, fileName);
+
+            // 파일 저장
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            // 데이터베이스에 파일 경로 저장
+            image = filePath.toString();
+        }
+		String userId = (String) map.get("userId");
+		PlaceDto placeDto = new PlaceDto((String)map.get("no"),(String)map.get("lat"),(String)map.get("lon"),(String)map.get("title"),(String)map.get("content"),(String)map.get("date"), image, new MemberDto(userId));
 		if (placeService.updatePlace(placeDto) != 0) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}

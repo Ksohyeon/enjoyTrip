@@ -55,6 +55,7 @@
 		update place
 		set lat=#{lat}, lon=#{lon},
 		title=#{title}, content=#{content}, date=#{date}, image=#{image}
+		where no=#{no}
 	</update>
 
 	<delete id="deletePlace">
