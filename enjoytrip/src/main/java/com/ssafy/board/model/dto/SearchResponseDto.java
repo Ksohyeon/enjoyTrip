@@ -8,10 +8,12 @@ public class SearchResponseDto   {
 	String lat;
 	String lon;
 	String tel;
+	String contentId;
 	
 	public SearchResponseDto() {}
 	
-	public SearchResponseDto(String img, String name, String address, String lat, String lon, String tel) {
+	public SearchResponseDto(String img, String name, String address, String lat, String lon, String tel,
+			String contentId) {
 		super();
 		this.img = img;
 		this.name = name;
@@ -19,11 +21,22 @@ public class SearchResponseDto   {
 		this.lat = lat;
 		this.lon = lon;
 		this.tel = tel;
+		this.contentId = contentId;
 	}
+
+
 	@Override
 	public String toString() {
 		return "SearchResponseDtoImpl [img=" + img + ", name=" + name + ", address=" + address + ", lat=" + lat
 				+ ", lon=" + lon + ", tel=" + tel + "]";
+	}
+	
+	public String getContentId() {
+		return contentId;
+	}
+	
+	public void setContentId(String contentId) {
+		this.contentId = contentId;
 	}
 
 	public String getImg() {

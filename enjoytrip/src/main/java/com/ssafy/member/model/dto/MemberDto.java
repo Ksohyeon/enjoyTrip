@@ -12,6 +12,11 @@ public class MemberDto {
 	private int admin;
 	
 	public MemberDto() {}
+	
+	public MemberDto(String userId) {
+		super();
+		this.userId = userId;
+	}
 
 	public MemberDto(String userId, String userName, String userPwd, String emailId, String emailDomain,
 			String joinDate, int admin) {
@@ -51,11 +56,6 @@ public class MemberDto {
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
-	}
-
-	public MemberDto(String userId) {
-		super();
-		this.userId = userId;
 	}
 
 	public String getUserId() {

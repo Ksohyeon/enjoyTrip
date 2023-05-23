@@ -18,7 +18,7 @@ public interface PlanMapper {
 	void updateHit(String planNo) throws SQLException;
 	
 	//장소 관련
-	int createAttr(Integer attrNo, String planNo, int order) throws SQLException;
+	int createAttr(String attrNo, String planNo, int order) throws SQLException;
 	List<AttrDto> listAttr(String planNo) throws SQLException;
 	int deleteAttr(String planNo) throws SQLException;
 	//좋아요 관련
