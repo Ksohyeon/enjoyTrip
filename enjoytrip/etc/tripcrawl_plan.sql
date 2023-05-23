@@ -86,4 +86,3 @@ select p.plan_id, p.title, p.content, p.start_date, p.end_date, p.created_at, p.
 from plan p
 join members m on p.user_id = m.user_id
 where p.plan_id = 1;
-

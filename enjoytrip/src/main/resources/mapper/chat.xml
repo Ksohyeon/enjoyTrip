@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.chat.model.mapper.ChatMapper">
+
+	<resultMap type="memberDto" id="userMap">
+		<result column="user_id" property="userId"/>
+		<result column="nickname" property="nickName"/>
+	</resultMap>
+
+	<resultMap type="chatDto" id="chat">
+		<result column="chat_id" property="id"/>
+		<result column="message" property="message"/>
+		<result column="send_at" property="sendAt"/>
+		<result column="is_request" property="isRequest"/>
+		<result column="sido_code" property="sido"/>
+		<association property="user" resultMap="userMap">
+			<result column="user_id" property="userId" />
+			<result column="nickname" property="nickName" />
+		</association>
+	</resultMap>
+	
+	<insert id="chatSave">
+		insert into chat (user_id, message, send_at, sido_code)
+		values (#{userId}, #{message}, #{sendAt}, #{sido});
+	</insert> 
+</mapper>
