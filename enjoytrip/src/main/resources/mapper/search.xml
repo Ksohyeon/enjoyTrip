@@ -21,10 +21,11 @@
 		<result column="latitude" property="lat"/>
 		<result column="longitude" property="lon"/>
 		<result column="tel" property="tel"/>
+		<result column="content_id" property="contentId"/>
 	</resultMap>
 	
 	<select id="searchList" resultMap="searchResponse">
-		SELECT ai.first_image, ai.title, ai.addr1, ai.latitude, ai.longitude, ai.tel
+		SELECT ai.first_image, ai.title, ai.addr1, ai.latitude, ai.longitude, ai.tel, ai.content_id
 		FROM attraction_info ai
 		join sido s on s.sido_code = ai.sido_code
 		where ai.title LIKE CONCAT('%', #{keyword}, '%')

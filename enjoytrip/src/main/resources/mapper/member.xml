@@ -50,7 +50,8 @@
 	<update id="updateMember">
 		UPDATE members
 		<trim prefix="set" suffixOverrides=",">
-			<if test="nickname != null">nickname = #{nickName},</if>
+			<if test="userName != null">user_name = #{userName},</if>
+			<if test="nickName != null">nickname = #{nickName},</if>
 			<if test="userPwd != null">user_password = #{userPwd},</if>
 			<if test="emailId != null">email_id = #{emailId},</if>
 			<if test="emailDomain != null">email_domain = #{emailDomain},</if>

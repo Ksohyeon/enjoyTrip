@@ -62,7 +62,7 @@ public class PlanController {
 	public ResponseEntity<String> writePlan(@RequestBody Map<String, Object> map) throws Exception{
 		PlanDto planDto = new PlanDto((String) map.get("title"),(String)  map.get("content"), (String) map.get("startDate"),(String)  map.get("endDate"), (String) map.get("theme"), new MemberDto((String) map.get("userId")));
 		System.out.println(planDto);
-		List<Integer> places = (List<Integer>) map.get("places");
+		List<String> places = (List<String>) map.get("places");
 		System.out.println(places);
 		if (planService.createPlan(planDto, places) != 0) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -75,7 +75,7 @@ public class PlanController {
 		PlanDto planDto = new PlanDto((String) map.get("title"),(String)  map.get("content"), (String) map.get("startDate"),(String)  map.get("endDate"), (String) map.get("theme"), new MemberDto((String) map.get("userId")));
 		planDto.setNo(no);
 		System.out.println(planDto);
-		List<Integer> places = (List<Integer>) map.get("places");
+		List<String> places = (List<String>) map.get("places");
 		System.out.println(places);
 		if (planService.updatePlan(planDto, places) != 0) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

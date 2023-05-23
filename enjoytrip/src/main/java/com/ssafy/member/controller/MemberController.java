@@ -109,6 +109,7 @@ public class MemberController {
 		MemberDto loginUser = null;
 		try {
 			loginUser = memberService.getMember(userid);
+			System.out.println(loginUser);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
