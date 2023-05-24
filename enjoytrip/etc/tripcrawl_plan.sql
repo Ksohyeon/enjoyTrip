@@ -64,7 +64,7 @@ select pp.plan_id, pp.content_id, a.first_image, a.title, a.addr1, a.latitude, a
 from plan_places pp
 join attraction_info a on a.content_id = pp.content_id
 join attraction_description ad on a.content_id = ad.content_id
-where pp.plan_id = 11
+where pp.plan_id = 1
 order by pp.place_order;
 
 select *
@@ -86,4 +86,3 @@ select p.plan_id, p.title, p.content, p.start_date, p.end_date, p.created_at, p.
 from plan p
 join members m on p.user_id = m.user_id
 where p.plan_id = 1;
-
