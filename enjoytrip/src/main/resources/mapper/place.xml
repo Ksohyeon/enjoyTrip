@@ -44,6 +44,12 @@
 		order by hit desc;
 	</select>
 
+	<select id="getImage" resultType="java.lang.String">
+		SELECT image
+		FROM place
+		WHERE no = #{no}
+	</select>
+
 	<insert id="createPlace">
 		insert into place (lat, lon, title, content, date,
 		image, author)
@@ -55,6 +61,13 @@
 		update place
 		set lat=#{lat}, lon=#{lon},
 		title=#{title}, content=#{content}, date=#{date}, image=#{image}
+		where
+		no=#{no}
+	</update>
+
+	<update id="updateHit">
+		update place
+		set hit = hit + 1
 		where no=#{no}
 	</update>
 

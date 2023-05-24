@@ -44,4 +44,14 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeMapper.deletePlace(no);
 	}
 
+	@Override
+	public int updateHit(String no) {
+        return placeMapper.updateHit(no);
+	}
+
+	@Override
+	public String getImage(String no) {
+		return placeMapper.getImage(no);
+	}
+
 }

@@ -2,6 +2,7 @@ package com.ssafy.place.controller;
 
 import static java.io.File.separator;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -60,6 +61,8 @@ public class PlaceController {
 	
 	@GetMapping("/{no}")
 	public ResponseEntity<?> getQna(@PathVariable("no") String no) throws Exception{
+		
+		if(placeService.updateHit(no) == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 		PlaceDto placeDto = placeService.getPlace(no);
 		if(placeDto != null) {
 			return new ResponseEntity<PlaceDto>(placeDto, HttpStatus.OK);
@@ -102,23 +105,34 @@ public class PlaceController {
 	}
 	
 	@PutMapping("/{no}")
-	public ResponseEntity<?> modifyPlace(@PathVariable("no") String no, @RequestBody  Map<String, Object> map) throws Exception {
-		String image = null;
-		MultipartFile file = (MultipartFile) map.get("file");
+	public ResponseEntity<?> modifyPlace(@PathVariable("no") String no, @RequestParam("file") MultipartFile file,
+	        @RequestParam("lat") String lat,
+	        @RequestParam("lon") String lon,
+	        @RequestParam("title") String title,
+	        @RequestParam("content") String content,
+	        @RequestParam("date") String date,
+	        @RequestParam("userId") String userId) throws Exception {
+		String image = placeService.getImage(no);
+		String RESOURCE_PATH =
+			      new ClassPathResource(uploadPath).getPath() + separator;
+		try {
+          Path filePath = Paths.get(RESOURCE_PATH, image);
+          Files.deleteIfExists(filePath); // 파일 삭제
+      } catch (IOException e) {
+          // 파일 삭제 실패
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      }
+		RESOURCE_PATH =
+			      new ClassPathResource(uploadPath).getPath() + separator;
 		if (!file.isEmpty()) {
-            String fileName = file.getOriginalFilename(); // 업로드된 파일명
-
-            // 파일을 저장할 경로 설정
-            Path filePath = Paths.get(uploadPath, fileName);
-
-            // 파일 저장
-            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-            // 데이터베이스에 파일 경로 저장
-            image = filePath.toString();
+			System.out.println(RESOURCE_PATH);
+			String fileName = file.getOriginalFilename(); // 업로드된 파일명
+	        Path filePath = Paths.get(RESOURCE_PATH, fileName); // 저장할 경로 설정
+	        Files.createDirectories(filePath.getParent()); // 부모 디렉토리가 존재하지 않으면 생성
+	        file.transferTo(filePath); // 파일 저장
+	        image = filePath.toString().split("uploads\\\\")[1]; // 파일 경로 저장
         }
-		String userId = (String) map.get("userId");
-		PlaceDto placeDto = new PlaceDto((String)map.get("no"),(String)map.get("lat"),(String)map.get("lon"),(String)map.get("title"),(String)map.get("content"),(String)map.get("date"), image, new MemberDto(userId));
+		PlaceDto placeDto = new PlaceDto(no, lat, lon, title, content, date, image, new MemberDto(userId));
 		if (placeService.updatePlace(placeDto) != 0) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
@@ -127,6 +141,17 @@ public class PlaceController {
 	
 	@DeleteMapping("/{no}")
 	public ResponseEntity<?> deletePlace(@PathVariable("no") String no) throws Exception{
+		
+		String image = placeService.getImage(no);
+		String RESOURCE_PATH =
+			      new ClassPathResource(uploadPath).getPath() + separator;
+		try {
+            Path filePath = Paths.get(RESOURCE_PATH, image);
+            Files.deleteIfExists(filePath); // 파일 삭제
+        } catch (IOException e) {
+            // 파일 삭제 실패
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
 		if (placeService.deletePlace(no) != 0) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}

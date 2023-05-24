@@ -12,4 +12,6 @@ public interface PlaceMapper {
 	int createPlace(PlaceDto placeDto);
 	int deletePlace(String no);
 	int updatePlace(PlaceDto placeDto);
+	int updateHit(String no);
+	String getImage(String no);
 }
