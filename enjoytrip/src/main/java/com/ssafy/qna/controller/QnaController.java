@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.member.model.dto.MemberDto;
+import com.ssafy.qna.model.dto.QnaCommentDto;
 import com.ssafy.qna.model.dto.QnaDto;
 import com.ssafy.qna.model.service.QnaService;
 
@@ -78,6 +79,46 @@ public class QnaController {
 	@DeleteMapping("/{no}")
 	public ResponseEntity<?> deleteQna(@PathVariable("no") String no) throws Exception{
 		if (qnaService.deleteQna(no) != 0) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/{no}/comment")
+	public ResponseEntity<?> listComment(@PathVariable("no") String no) throws Exception{
+		System.out.println(no);
+		List<QnaCommentDto> list = qnaService.listQnaComment(no);
+		System.out.println(list);
+		if (list != null && !list.isEmpty()) {
+			return new ResponseEntity<List<QnaCommentDto>>(list, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); // 204
+		}
+	}
+	
+	@PostMapping("/{no}/comment")
+	public ResponseEntity<String> writeQnaComment(@PathVariable String no, @RequestBody Map<String, String> map) throws Exception{
+		QnaCommentDto qnaCommentDto = new QnaCommentDto(no, map.get("commentContent"), new MemberDto(map.get("userId")));
+		System.out.println(qnaCommentDto);
+		if (qnaService.createQnaComment(qnaCommentDto) != 0) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
+	
+	@PutMapping("/{no}/comment/{commentNo}")
+	public ResponseEntity<?> modifyQna(@PathVariable("commentNo") String commentNo, @RequestBody Map<String, String> map) throws Exception {
+		QnaCommentDto qnaCommentDto = new QnaCommentDto(commentNo, map.get("commentContent"), new MemberDto(map.get("userId")));
+		System.out.println(qnaCommentDto);
+		if (qnaService.updateQnaComment(qnaCommentDto) != 0) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
+	
+	@DeleteMapping("/{no}/comment/{commentNo}")
+	public ResponseEntity<?> deleteQnaComment(@PathVariable("commentNo") String commentNo) throws Exception{
+		if (qnaService.deleteQnaComment(commentNo) != 0) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);

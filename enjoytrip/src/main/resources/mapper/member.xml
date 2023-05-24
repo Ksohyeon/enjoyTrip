@@ -6,11 +6,12 @@
 
 	<resultMap type="memberDto" id="member">
 		<result column="user_id" property="userId"/>
-		<result column="user_name" property="userName"/>
+		<result column="nickname" property="nickName"/>
 	</resultMap>
 	
 	<resultMap type="memberDto" id="memberAll" extends="member">
 		<result column="user_password" property="userPwd"/>
+		<result column="user_name" property="userName"/>
 		<result column="email_id" property="emailId"/>
 		<result column="email_domain" property="emailDomain"/>
 		<result column="join_date" property="joinDate"/>
@@ -24,24 +25,24 @@
 	</select>
 
 	<insert id="joinMember">
-		insert into members (user_name, user_id, user_password, email_id, email_domain, join_date, admin)
-		values (#{userName}, #{userId}, #{userPwd}, #{emailId}, #{emailDomain}, now(), 0);
+		insert into members (user_name, nickname, user_id, user_password, email_id, email_domain, join_date, admin)
+		values (#{userName}, #{nickName}, #{userId}, #{userPwd}, #{emailId}, #{emailDomain}, now(), 0);
 	</insert>
 
 	<select id="loginMember" resultMap="member">
-		select user_id, user_name, admin
+		select user_id, nickname, admin
 		from members
 		where user_id = #{userId} and user_password = #{userPwd}
 	</select>
 	
 	<select id="listMember" resultMap="memberAll">
-		SELECT user_name, user_id, user_password, email_id, email_domain, join_date, admin
+		SELECT user_name, nickname, user_id, user_password, email_id, email_domain, join_date, admin
 		FROM members
 		ORDER BY join_date
 	</select>
 	
 	<select id="getMember" resultMap="memberAll">
-		SELECT user_name, user_id, user_password, email_id, email_domain, join_date
+		SELECT user_name, nickname, user_id, user_password, email_id, email_domain, join_date
 		FROM members
 		WHERE user_id = #{userId}
 	</select>
@@ -49,6 +50,8 @@
 	<update id="updateMember">
 		UPDATE members
 		<trim prefix="set" suffixOverrides=",">
+			<if test="userName != null">user_name = #{userName},</if>
+			<if test="nickName != null">nickname = #{nickName},</if>
 			<if test="userPwd != null">user_password = #{userPwd},</if>
 			<if test="emailId != null">email_id = #{emailId},</if>
 			<if test="emailDomain != null">email_domain = #{emailDomain},</if>
