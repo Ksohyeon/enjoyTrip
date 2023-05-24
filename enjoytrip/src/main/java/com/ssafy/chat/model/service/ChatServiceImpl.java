@@ -1,6 +1,7 @@
 package com.ssafy.chat.model.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,13 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	@Override
-	public ChatDto chattingHandler(ChatDto chatDto) throws SQLException {
-		
-		
-		return chatMapper.chatSave(chatDto);
+	public void chattingHandler(ChatDto chatDto) throws SQLException {
+		chatMapper.chatSave(chatDto);
+	}
+
+	@Override
+	public List<ChatDto> preChatList(String roomNo) {
+		return chatMapper.preChatList(roomNo);
 	}
 
 }

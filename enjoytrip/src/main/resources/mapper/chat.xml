@@ -4,25 +4,25 @@
 
 <mapper namespace="com.ssafy.chat.model.mapper.ChatMapper">
 
-	<resultMap type="memberDto" id="userMap">
-		<result column="user_id" property="userId"/>
-		<result column="nickname" property="nickName"/>
-	</resultMap>
 
 	<resultMap type="chatDto" id="chat">
-		<result column="chat_id" property="id"/>
 		<result column="message" property="message"/>
 		<result column="send_at" property="sendAt"/>
-		<result column="is_request" property="isRequest"/>
 		<result column="sido_code" property="sido"/>
-		<association property="user" resultMap="userMap">
-			<result column="user_id" property="userId" />
-			<result column="nickname" property="nickName" />
-		</association>
+		<result column="user_id" property="userId" />
+		<result column="nickname" property="userNickName" />
 	</resultMap>
 	
 	<insert id="chatSave">
-		insert into chat (user_id, message, send_at, sido_code)
-		values (#{userId}, #{message}, #{sendAt}, #{sido});
+		insert into chat (user_id, message, sido_code)
+		values (#{userId}, #{message}, #{sido});
 	</insert> 
+	
+	<select id="preChatList" resultMap="chat">
+		select c.message, c.send_at, c.sido_code, m.user_id, m.nickname
+		from chat c
+		join members m on c.user_id=m.user_id
+		where sido_code= #{roomNo}
+	</select>
+	
 </mapper>

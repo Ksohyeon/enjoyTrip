@@ -64,4 +64,10 @@
 		WHERE user_id = #{userId}
 	</delete>
 	
+	
+	<select id="getNickName" resultType="String">
+		select nickname
+		from members
+		where user_id= #{userId}
+	</select>
 </mapper>

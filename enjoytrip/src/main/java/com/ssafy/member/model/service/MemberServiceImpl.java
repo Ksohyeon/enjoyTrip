@@ -56,4 +56,9 @@ public class MemberServiceImpl implements MemberService {
 		memberMapper.deleteMember(userId);
 	}
 
+	@Override
+	public String getNickName(String userId) throws Exception {
+		return memberMapper.getNickName(userId);
+	}
+
 }

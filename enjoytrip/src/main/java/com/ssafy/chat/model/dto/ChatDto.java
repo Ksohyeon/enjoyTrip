@@ -1,17 +1,10 @@
 package com.ssafy.chat.model.dto;
 
 
-
-
-
-import java.sql.Timestamp;
-
-import com.ssafy.member.model.dto.MemberDto;
-
 public class ChatDto {
 
     private String message;
-    private Timestamp sendAt;
+    private String sendAt;
     private String sido;
     private String userId;
     private String userNickName;
@@ -21,7 +14,7 @@ public class ChatDto {
 	}
 
 
-	public ChatDto(String message, Timestamp sendAt, String sido, String userId) {
+	public ChatDto(String message, String sendAt, String sido, String userId) {
 		super();
 		this.message = message;
 		this.sendAt = sendAt;
@@ -31,7 +24,7 @@ public class ChatDto {
 
 	
 	
-	public ChatDto(String message, Timestamp sendAt, String sido, String userId, String userNickName) {
+	public ChatDto(String message, String sendAt, String sido, String userId, String userNickName) {
 		super();
 		this.message = message;
 		this.sendAt = sendAt;
@@ -49,11 +42,11 @@ public class ChatDto {
 		this.message = message;
 	}
 
-	public Timestamp getSendAt() {
+	public String getSendAt() {
 		return sendAt;
 	}
 
-	public void setSendAt(Timestamp sendAt) {
+	public void setSendAt(String sendAt) {
 		this.sendAt = sendAt;
 	}
 

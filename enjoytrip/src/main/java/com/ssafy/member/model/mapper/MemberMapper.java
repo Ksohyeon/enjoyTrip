@@ -11,6 +11,7 @@ import com.ssafy.member.model.dto.MemberDto;
 @Mapper
 public interface MemberMapper {
 
+	
 	int idCheck(String userId) throws SQLException;
 	int joinMember(MemberDto memberDto) throws SQLException;
 	MemberDto loginMember(Map<String, String> map) throws SQLException;
@@ -18,5 +19,6 @@ public interface MemberMapper {
 	MemberDto getMember(String userId) throws SQLException;
 	void updateMember(MemberDto memberDto) throws SQLException;
 	void deleteMember(String userId) throws SQLException;
+	String getNickName(String userId);
 	
 }
