@@ -13,5 +13,7 @@ public interface PlaceService {
 	int updatePlace(PlaceDto placeDto);
 	int updateHit(String no);
 	String getImage(String no);
+	int likePlan(String no, String userId);
+	int unLikePlan(String no, String userId);
 
 }
