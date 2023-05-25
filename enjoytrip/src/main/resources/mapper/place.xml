@@ -42,8 +42,7 @@
 
 	<select id="getPlace" resultMap="place">
 		select p.no, p.lat, p.lon,
-		p.title, p.content, p.hit, p.date, p.created_at, p.image, m.user_id,
-		m.user_name
+		p.title, p.content, p.hit, p.date, p.created_at, p.image, m.user_id, m.nickname
 		from place p
 		join members m on p.author = m.user_id
 		where no
