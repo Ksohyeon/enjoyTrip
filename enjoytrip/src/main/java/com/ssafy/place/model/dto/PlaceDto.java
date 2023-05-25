@@ -1,5 +1,7 @@
 package com.ssafy.place.model.dto;
 
+import java.util.List;
+
 import com.ssafy.member.model.dto.MemberDto;
 
 public class PlaceDto {
@@ -13,7 +15,14 @@ public class PlaceDto {
 	private String created_at;
 	private String image;
 	private MemberDto author;
+	private List<MemberDto> likeUsers;
 
+	public List<MemberDto> getLikeUsers() {
+		return likeUsers;
+	}
+	public void setLikeUsers(List<MemberDto> likeUsers) {
+		this.likeUsers = likeUsers;
+	}
 	public PlaceDto() {}
 	public PlaceDto(String no, String lat, String lon, String title, String content, int hit, String date,
 			String created_at, String image, MemberDto author) {
@@ -120,12 +129,11 @@ public class PlaceDto {
 	public void setAuthor(MemberDto author) {
 		this.author = author;
 	}
-
 	@Override
 	public String toString() {
 		return "PlaceDto [no=" + no + ", lat=" + lat + ", lon=" + lon + ", title=" + title + ", content=" + content
 				+ ", hit=" + hit + ", date=" + date + ", created_at=" + created_at + ", image=" + image + ", author="
-				+ author + "]";
+				+ author + ", likeUsers=" + likeUsers + "]";
 	}
 
 }

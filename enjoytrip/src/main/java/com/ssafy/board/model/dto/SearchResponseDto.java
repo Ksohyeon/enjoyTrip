@@ -9,11 +9,12 @@ public class SearchResponseDto   {
 	String lon;
 	String tel;
 	String contentId;
+	String overView;
 	
 	public SearchResponseDto() {}
 	
 	public SearchResponseDto(String img, String name, String address, String lat, String lon, String tel,
-			String contentId) {
+			String contentId, String overView) {
 		super();
 		this.img = img;
 		this.name = name;
@@ -22,15 +23,15 @@ public class SearchResponseDto   {
 		this.lon = lon;
 		this.tel = tel;
 		this.contentId = contentId;
+		this.overView = overView;
 	}
-
 
 	@Override
 	public String toString() {
-		return "SearchResponseDtoImpl [img=" + img + ", name=" + name + ", address=" + address + ", lat=" + lat
-				+ ", lon=" + lon + ", tel=" + tel + "]";
+		return "SearchResponseDto [img=" + img + ", name=" + name + ", address=" + address + ", lat=" + lat + ", lon="
+				+ lon + ", tel=" + tel + ", contentId=" + contentId + ", overView=" + overView + "]";
 	}
-	
+
 	public String getContentId() {
 		return contentId;
 	}
@@ -74,5 +75,13 @@ public class SearchResponseDto   {
 	}
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+
+	public String getOverView() {
+		return overView;
+	}
+
+	public void setOverView(String overView) {
+		this.overView = overView;
 	}
 }

@@ -26,7 +26,10 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public PlaceDto getPlace(String no) throws SQLException {
-		return placeMapper.getPlace(no);
+		PlaceDto placeDto = placeMapper.getPlace(no);
+		placeDto.setLikeUsers(placeMapper.listLikeUsers(no));
+		System.out.println(placeDto);
+		return placeDto;
 	}
 
 	@Override
@@ -52,6 +55,16 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public String getImage(String no) {
 		return placeMapper.getImage(no);
+	}
+
+	@Override
+	public int likePlan(String no, String userId) {
+		return placeMapper.likePlan(no, userId);
+	}
+
+	@Override
+	public int unLikePlan(String no, String userId) {
+		return placeMapper.unLikePlan(no,  userId);
 	}
 
 }

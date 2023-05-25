@@ -24,6 +24,13 @@
 			<result column="nickname" property="nickName" />
 		</association>
 	</resultMap>
+	
+	<select id="listLikeUsers" resultMap="author">
+		select m.user_id, m.nickname
+		from place_likes p
+		join members m on p.user_id = m.user_id
+		where p.place_no = #{no}
+	</select>
 
 	<select id="placeList" resultMap="place">
 		select p.no, p.lat, p.lon,
@@ -35,8 +42,7 @@
 
 	<select id="getPlace" resultMap="place">
 		select p.no, p.lat, p.lon,
-		p.title, p.content, p.hit, p.date, p.created_at, p.image, m.user_id,
-		m.user_name
+		p.title, p.content, p.hit, p.date, p.created_at, p.image, m.user_id, m.nickname
 		from place p
 		join members m on p.author = m.user_id
 		where no
@@ -75,5 +81,16 @@
 		delete
 		from place
 		where no=#{no}
+	</delete>
+	
+	<insert id="likePlan">
+		insert into place_likes (place_no , user_id)
+		values (#{no}, #{userId})
+	</insert>
+	
+	<delete id="unLikePlan">
+		delete 
+		from place_likes
+		where place_no = #{no} and user_id= #{userId}
 	</delete>
 </mapper>
