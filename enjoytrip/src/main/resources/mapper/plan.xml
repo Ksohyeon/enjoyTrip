@@ -35,6 +35,14 @@
 		</association>
 	</resultMap>
 	
+	<select id="listMyPlan" resultMap="plan">
+		select p.plan_id, p.title, p.content, p.start_date, p.end_date, p.created_at, p.hit, p.theme, m.user_id, m.nickname
+		from plan p
+		join members m on p.user_id = m.user_id
+		where p.user_id = #{userId}
+		order by plan_id desc
+	</select>
+	
 	<select id="listPlan" resultMap="plan">
 		select p.plan_id, p.title, p.content, p.start_date, p.end_date, p.created_at, p.hit, p.theme, m.user_id, m.nickname
 		from plan p
@@ -102,7 +110,7 @@
 		select m.user_id, m.nickname
 		from plan_likes p
 		join members m on p.user_id = m.user_id
-		where p.plan_id = 1;
+		where p.plan_id = #{planNo};
 	</select>
 	
 	<insert id="likePlan">
@@ -115,4 +123,5 @@
 		from plan_likes
 		where plan_id = #{planNo} and user_id= #{userId}
 	</delete>
+	
 </mapper>

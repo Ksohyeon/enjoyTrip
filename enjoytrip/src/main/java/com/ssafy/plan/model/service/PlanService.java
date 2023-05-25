@@ -3,6 +3,9 @@ package com.ssafy.plan.model.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
+import com.ssafy.plan.model.dto.LikeDto;
 import com.ssafy.plan.model.dto.PlanDto;
 
 public interface PlanService {
@@ -14,4 +17,5 @@ public interface PlanService {
 	
 	int likePlan(String planNo, String userId) throws SQLException;
 	int unLikePlan(String planNo, String userId) throws SQLException;
+	List<PlanDto> listMyPlan(String userId) throws SQLException;
 }

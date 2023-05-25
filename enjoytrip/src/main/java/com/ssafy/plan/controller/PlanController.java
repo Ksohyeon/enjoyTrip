@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.member.model.dto.MemberDto;
+import com.ssafy.plan.model.dto.LikeDto;
 import com.ssafy.plan.model.dto.PlanDto;
 import com.ssafy.plan.model.service.PlanService;
 import com.ssafy.qna.controller.QnaController;
@@ -37,6 +38,16 @@ public class PlanController {
 		this.planService = planService;
 	}
 	
+	@GetMapping("/myplan/{userId}")
+	public ResponseEntity<?> listMyPlan(@PathVariable("userId") String userId) throws Exception{
+		List<PlanDto> list = planService.listMyPlan(userId);
+		System.out.println(list.size());
+		if (list != null && !list.isEmpty()) {
+			return new ResponseEntity<List<PlanDto>>(list, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); // 204
+		}
+	}
 	
 	@GetMapping
 	public ResponseEntity<?> listPlan() throws Exception {
@@ -90,6 +101,7 @@ public class PlanController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
+	
 	
 	@PostMapping("/{no}/like/{user_id}")
 	public ResponseEntity<String> likePlan(@PathVariable("no") String no, @PathVariable("user_id") String userId) throws Exception{

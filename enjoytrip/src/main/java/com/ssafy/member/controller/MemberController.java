@@ -95,7 +95,7 @@ public class MemberController {
 			System.out.println("return dto: "+memberDto);
 			return new ResponseEntity<MemberDto>(memberDto, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<MemberDto>(new MemberDto(), HttpStatus.OK);
+			return new ResponseEntity<MemberDto>(new MemberDto(), HttpStatus.NO_CONTENT);
 		}
 	}
 	
