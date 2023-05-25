@@ -4,10 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.plan.model.dto.AttrDto;
+import com.ssafy.plan.model.dto.LikeDto;
 import com.ssafy.plan.model.dto.PlanDto;
 import com.ssafy.plan.model.mapper.PlanMapper;
 
@@ -71,6 +73,11 @@ public class PlanServiceImpl implements PlanService{
 	@Override
 	public int unLikePlan(String planNo, String userId) throws SQLException {
 		return planMapper.unLikePlan(planNo, userId);
+	}
+
+	@Override
+	public List<PlanDto> listMyPlan(String userId) throws SQLException {
+		return planMapper.listMyPlan(userId);
 	}
 
 
