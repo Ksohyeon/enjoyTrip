@@ -43,6 +43,7 @@ public class BoardController {
 		SearchRequestDto searchRequestDto = new SearchRequestDto(sido, category, keyword);
 		System.out.println(searchRequestDto);
 		List<SearchResponseDto> searchList = searchService.searchList(searchRequestDto);
+		System.out.println(searchList.get(0).getOverView());
 		if (searchList != null && !searchList.isEmpty()) {
 			return new ResponseEntity<List<SearchResponseDto>>(searchList, HttpStatus.OK); // 200
 		}
