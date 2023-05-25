@@ -98,6 +98,7 @@ public class QnaController {
 	
 	@PostMapping("/{no}/comment")
 	public ResponseEntity<String> writeQnaComment(@PathVariable String no, @RequestBody Map<String, String> map) throws Exception{
+		System.out.println(no);
 		QnaCommentDto qnaCommentDto = new QnaCommentDto(no, map.get("commentContent"), new MemberDto(map.get("userId")));
 		System.out.println(qnaCommentDto);
 		if (qnaService.createQnaComment(qnaCommentDto) != 0) {

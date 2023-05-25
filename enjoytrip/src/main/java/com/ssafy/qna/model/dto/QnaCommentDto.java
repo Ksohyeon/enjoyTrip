@@ -32,9 +32,9 @@ public class QnaCommentDto {
 	}
 	
 
-	public QnaCommentDto(String commentNo, String commentContent, MemberDto author) {
+	public QnaCommentDto(String qnaNo, String commentContent, MemberDto author) {
 		super();
-		this.commentNo = commentNo;
+		this.qnaNo = qnaNo;
 		this.commentContent = commentContent;
 		this.author = author;
 	}
